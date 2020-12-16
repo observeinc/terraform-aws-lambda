@@ -1,0 +1,45 @@
+provider "aws" {}
+
+resource "random_pet" "run" {
+  length = 2
+}
+
+module "cloudtrail_s3_bucket" {
+  source        = "cloudposse/cloudtrail-s3-bucket/aws"
+  version       = "0.12.0"
+  name          = random_pet.run.id
+  force_destroy = true
+}
+
+module "cloudtrail" {
+  source                        = "cloudposse/cloudtrail/aws"
+  version                       = "0.15.0"
+  name                          = random_pet.run.id
+  enable_log_file_validation    = true
+  include_global_service_events = true
+  is_multi_region_trail         = false
+  enable_logging                = true
+  s3_bucket_name                = module.cloudtrail_s3_bucket.bucket_id
+}
+
+module "observe_lambda" {
+  source           = "../.."
+  observe_customer = var.observe_customer
+  observe_token    = var.observe_token
+  observe_domain   = var.observe_domain
+  name             = random_pet.run.id
+}
+
+module "observe_lambda_s3_subscription" {
+  source = "../../s3_bucket_subscription"
+  lambda = module.observe_lambda.lambda_function
+  bucket = {
+    arn = module.cloudtrail_s3_bucket.bucket_arn
+    id  = module.cloudtrail_s3_bucket.bucket_id
+  }
+
+  # ensure we delete our policy attachments before tearing down policy
+  # attachments in the following module, otherwise we hit "conflicting
+  # conditional operation" error in AWS API. 
+  depends_on = [module.cloudtrail_s3_bucket]
+}
