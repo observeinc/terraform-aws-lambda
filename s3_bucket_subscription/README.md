@@ -1,4 +1,8 @@
-# TBC
+# AWS S3 Bucket Subscription to Observe Lambda
+
+Given an S3 bucket and an Observe lambda function, this module notifies the
+lambda on object creation events, and grants the necessary permissions for the
+lambda function to retrieve the newly created object.
 
 ## Terraform versions
 
@@ -8,92 +12,30 @@ Terraform 0.12 and newer. Submit pull-requests to `main` branch.
 
 ```hcl
 resource "aws_s3_bucket" "bucket" {
-  bucket        = "observe-kinesis-firehose-bucket"
+  bucket        = random_pet.run.id
   acl           = "private"
   force_destroy = true
 }
 
-module "observe_kinesis_firehose" {
-  source = "github.com/observeinc/terraform-aws-kinesis-firehose"
+module "observe_lambda" {
+  source           = "../.."
+  observe_customer = var.observe_customer
+  observe_token    = var.observe_token
+  observe_domain   = var.observe_domain
+  name             = random_pet.run.id
+}
 
-  name                = "observe-kinesis-firehose"
-  observe_customer    = "<id>"
-  observe_token       = "<token>"
-  s3_delivery_bucket  = aws_s3_bucket.bucket
+module "observe_lambda_s3_subscription" {
+  source = "../../s3_bucket_subscription"
+  lambda = module.observe_lambda.lambda_function
+  bucket = aws_s3_bucket.bucket
 }
 ```
 
-This module will create a Kinesis Firehose delivery stream, as well as a role
-and any required policies. An S3 bucket must be provided as a backup in case of
-failed HTTP delivery.
+Given an S3 bucket and an Observe lambda function, this module notifies the
+lambda on object creation events, and grants the necessary permissions for the
+lambda function to retrieve the created object.
 
-## Configuring Kinesis Data Stream as a source
-
-Optionally, you can specify a Kinesis Data Stream as a source to the Kinesis Firehose delivery stream. Only one data stream can be specified, and configuring this option disables all other inputs to your Kinesis Firehose.
-
-```hcl
-resource "aws_kinesis_stream" "example" {
-  name             = "observe-kinesis-stream-example"
-  shard_count      = 1
-  retention_period = 24
-}
-
-module "observe_kinesis_firehose" {
-  source = "github.com/observeinc/terraform-aws-kinesis-firehose"
-
-  name                = "observe-kinesis-firehose"
-  observe_customer    = "<id>"
-  observe_token       = "<token>"
-  s3_delivery_bucket  = aws_s3_bucket.bucket
-  kinesis_stream      = aws_kinesis_stream.example
-}
-```
-
-For more details, see the Kinesis Data Stream example.
-
-## Configuring other sources
-
-If you have not specified a Kinesis Data Stream as a source, you are free to configure other sources to put directly to your Kinesis Firehose delivery stream. You can use the module output policy when adding sources:
-
-```hcl
-resource "aws_iam_role_policy_attachment" "invoke_firehose" {
-  role       = aws_iam_role.role.name
-  policy_arn = module.observe_kinesis_firehose.firehose_iam_policy.arn
-}
-```
-
-See the provided EventBridge example for a more complete example.
-
-
-## Cloudwatch Logs
-
-A Cloudwatch Log Group can optionally be provided in order to surface logs for
-both S3 and HTTP endpoint delivery.
-
-```hcl
-resource "aws_cloudwatch_log_group" "group" {
-  name              = "my-log-group"
-  retention_in_days = 14
-}
-
-module "observe_kinesis_firehose" {
-  source = "github.com/observeinc/terraform-aws-kinesis-firehose"
-
-  name                 = "observe-kinesis-firehose"
-  observe_customer     = "<id>"
-  observe_token        = "<token>"
-  s3_delivery_bucket   = aws_s3_bucket.bucket
-
-  cloudwatch_log_group = aws_cloudwatch_log_group.group
-}
-```
-
-Currently the module configures two output streams: one for S3 delivery, and another for HTTP endpoint delivery. You can disable either stream by setting `s3_delivery_cloudwatch_log_stream_name` and `http_endpoint_cloudwatch_log_stream_name` respectively to an empty string.
-
-## Examples
-
-* [EventBridge to Kinesis Firehose](https://github.com/observeinc/terraform-aws-kinesis-firehose/tree/main/examples/eventbridge)
-* [Kinesis Data Stream to Kinesis Firehose](https://github.com/observeinc/terraform-aws-kinesis-firehose/tree/main/examples/kinesis)
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
