@@ -13,3 +13,15 @@ variable "observe_domain" {
   type        = string
   default     = "observeinc.com"
 }
+
+variable "filter_prefix" {
+  description = "Specifies object key name prefix on S3 bucket notifications."
+  type        = string
+  default     = ""
+}
+
+variable "filter_suffix" {
+  description = "Specifies object key name suffix on S3 bucket notifications."
+  type        = string
+  default     = ""
+}
