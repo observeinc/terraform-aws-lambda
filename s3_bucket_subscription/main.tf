@@ -38,7 +38,7 @@ resource "aws_iam_policy" "s3_bucket_read" {
      "Resource": "${var.bucket.arn}",
      "Condition":{
        "StringLike":{
-         "s3:prefix":["${var.filter_prefix == "" ? "*" : var.filter_prefix}"]
+         "s3:prefix":["${var.filter_prefix}*"]
        }
      }
     },
@@ -47,7 +47,7 @@ resource "aws_iam_policy" "s3_bucket_read" {
         "s3:GetObject"
       ],
       "Effect": "Allow",
-      "Resource": "${var.bucket.arn}/*"
+      "Resource": "${var.bucket.arn}/${var.filter_prefix}*"
     }
   ]
 }
