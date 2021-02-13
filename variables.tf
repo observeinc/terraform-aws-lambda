@@ -38,6 +38,24 @@ variable "s3_regional_buckets" {
   default     = {}
 }
 
+variable "s3_bucket" {
+  description = "S3 Bucket hosting lambda binary. If provided, overrides regional bucket map"
+  type        = string
+  default     = ""
+}
+
+variable "s3_key" {
+  description = "S3 object key for lambda binary. If provided, overrides s3_key_prefix"
+  type        = string
+  default     = ""
+}
+
+variable "s3_object_version" {
+  description = "S3 object version for lambda binary"
+  type        = string
+  default     = ""
+}
+
 variable "description" {
   description = "Lambda description"
   type        = string
@@ -99,4 +117,10 @@ variable "retention_in_days" {
   description = "Retention in days of cloudwatch log group"
   type        = number
   default     = 14
+}
+
+variable "lambda_envvars" {
+  description = "Environment variables"
+  type        = map(any)
+  default     = {}
 }

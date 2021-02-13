@@ -2,15 +2,18 @@ locals {
   default_lambda_bucket = format("observeinc-%s", data.aws_region.current.name)
   lambda_iam_role_arn   = var.lambda_iam_role_arn != "" ? var.lambda_iam_role_arn : aws_iam_role.lambda[0].arn
   lambda_iam_role_name  = regex(".*role/(?P<role_name>.*)$", local.lambda_iam_role_arn)["role_name"]
+  s3_bucket             = var.s3_bucket != "" ? var.s3_bucket : lookup(var.s3_regional_buckets, data.aws_region.current.name, local.default_lambda_bucket)
+  s3_key                = var.s3_key != "" ? var.s3_key : join("/", [var.s3_key_prefix, format("%s.zip", var.lambda_version)])
 }
 
 data "aws_region" "current" {}
 
 resource "aws_lambda_function" "this" {
-  function_name = var.name
-  s3_bucket     = lookup(var.s3_regional_buckets, data.aws_region.current.name, local.default_lambda_bucket)
-  s3_key        = join("/", [var.s3_key_prefix, format("%s.zip", var.lambda_version)])
-  role          = local.lambda_iam_role_arn
+  function_name     = var.name
+  s3_bucket         = local.s3_bucket
+  s3_key            = local.s3_key
+  s3_object_version = var.s3_object_version
+  role              = local.lambda_iam_role_arn
 
   handler     = "main"
   runtime     = "go1.x"
@@ -23,10 +26,10 @@ resource "aws_lambda_function" "this" {
   timeout                        = var.timeout
 
   environment {
-    variables = {
+    variables = merge({
       OBSERVE_URL   = format("https://collect.%s/v1/observations", var.observe_domain)
       OBSERVE_TOKEN = format("%s %s", var.observe_customer, var.observe_token)
-    }
+    }, var.lambda_envvars)
   }
 
   depends_on = [aws_iam_role_policy_attachment.lambda_logs]
