@@ -1,4 +1,3 @@
-# Optional input variables
 variable "lambda" {
   description = "Observe Lambda module"
   type = object({

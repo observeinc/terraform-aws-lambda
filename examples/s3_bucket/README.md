@@ -40,6 +40,8 @@ Note that this will create AWS resources - once you are done, run `terraform des
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| filter\_prefix | Specifies object key name prefix on S3 bucket notifications. | `string` | `""` | no |
+| filter\_suffix | Specifies object key name suffix on S3 bucket notifications. | `string` | `""` | no |
 | observe\_customer | Observe Customer ID | `string` | n/a | yes |
 | observe\_domain | Observe Domain | `string` | `"observeinc.com"` | no |
 | observe\_token | Observe token | `string` | n/a | yes |
