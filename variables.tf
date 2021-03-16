@@ -124,3 +124,17 @@ variable "lambda_envvars" {
   type        = map(any)
   default     = {}
 }
+
+variable "vpc_config" {
+  description = "VPC Config"
+  type = object({
+    security_groups = list(object({
+      id = string
+    }))
+    subnets = list(object({
+      arn = string
+      id  = string
+    }))
+  })
+  default = null
+}

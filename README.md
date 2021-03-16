@@ -69,6 +69,7 @@ This repository contains examples of how to solve for concrete usecases:
 | s3\_regional\_buckets | Map of AWS regions to lambda hosting S3 buckets | `map(any)` | `{}` | no |
 | tags | A map of tags to add to all resources | `map(string)` | `{}` | no |
 | timeout | The amount of time that Lambda allows a function to run before stopping it.<br>The maximum allowed value is 900 seconds. | `number` | `60` | no |
+| vpc\_config | VPC Config | <pre>object({<br>    security_groups = list(object({<br>      id = string<br>    }))<br>    subnets = list(object({<br>      arn = string<br>      id  = string<br>    }))<br>  })</pre> | `null` | no |
 
 ## Outputs
 

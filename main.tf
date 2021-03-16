@@ -25,6 +25,11 @@ resource "aws_lambda_function" "this" {
   reserved_concurrent_executions = var.reserved_concurrent_executions
   timeout                        = var.timeout
 
+  vpc_config {
+    security_group_ids = var.vpc_config == null ? [] : [for s in var.vpc_config.security_groups : s.id]
+    subnet_ids         = var.vpc_config == null ? [] : [for s in var.vpc_config.subnets : s.id]
+  }
+
   environment {
     variables = merge({
       OBSERVE_URL   = format("https://collect.%s/v1/observations", var.observe_domain)
@@ -32,7 +37,10 @@ resource "aws_lambda_function" "this" {
     }, var.lambda_envvars)
   }
 
-  depends_on = [aws_iam_role_policy_attachment.lambda_logs]
+  depends_on = [
+    aws_iam_role_policy_attachment.lambda_logs,
+    aws_iam_role_policy_attachment.vpc_access,
+  ]
 }
 
 resource "aws_iam_role" "lambda" {
@@ -87,4 +95,38 @@ EOF
 resource "aws_iam_role_policy_attachment" "lambda_logs" {
   role       = local.lambda_iam_role_name
   policy_arn = aws_iam_policy.lambda_logging.arn
+}
+
+resource "aws_iam_policy" "vpc_access" {
+  count       = var.vpc_config == null ? 0 : 1
+  name_prefix = var.iam_name_prefix
+  description = "IAM policy for attaching to VPC"
+
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "ec2:CreateNetworkInterface",
+        "ec2:DescribeNetworkInterfaces",
+        "ec2:DeleteNetworkInterface"
+      ],
+      "Resource": "*",
+      "Condition": {
+        "ArnLikeIfExists": {
+          "ec2:Subnet": ${jsonencode([for s in var.vpc_config.subnets : s.arn])}
+        }
+      }
+    }
+  ]
+}
+EOF
+}
+
+resource "aws_iam_role_policy_attachment" "vpc_access" {
+  count      = var.vpc_config == null ? 0 : 1
+  role       = local.lambda_iam_role_name
+  policy_arn = aws_iam_policy.vpc_access[0].arn
 }
