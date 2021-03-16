@@ -32,11 +32,6 @@ module "observe_lambda_s3_subscription" {
 }
 ```
 
-Given an S3 bucket and an Observe lambda function, this module notifies the
-lambda on object creation events, and grants the necessary permissions for the
-lambda function to retrieve the created object.
-
-
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
