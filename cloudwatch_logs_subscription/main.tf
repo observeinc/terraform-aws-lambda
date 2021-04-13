@@ -5,11 +5,19 @@ locals {
 }
 
 resource "aws_lambda_permission" "permission" {
-  count         = length(var.log_group_names)
+  count         = var.allow_all_log_groups ? 0 : length(var.log_group_names)
   action        = "lambda:InvokeFunction"
   function_name = var.lambda.function_name
   principal     = format("logs.%s.amazonaws.com", local.region)
   source_arn    = format("arn:aws:logs:%s:%s:log-group:%s:*", local.region, local.account, var.log_group_names[count.index])
+}
+
+resource "aws_lambda_permission" "permission_allow_all" {
+  count         = var.allow_all_log_groups ? 1 : 0
+  action        = "lambda:InvokeFunction"
+  function_name = var.lambda.function_name
+  principal     = format("logs.%s.amazonaws.com", local.region)
+  source_arn    = format("arn:aws:logs:%s:%s:log-group:*:*", local.region, local.account)
 }
 
 resource "aws_cloudwatch_log_subscription_filter" "subscription_filter" {
@@ -19,5 +27,5 @@ resource "aws_cloudwatch_log_subscription_filter" "subscription_filter" {
   filter_pattern  = var.filter_pattern
   destination_arn = var.lambda.arn
 
-  depends_on = [aws_lambda_permission.permission]
+  depends_on = [aws_lambda_permission.permission, aws_lambda_permission.permission_allow_all]
 }

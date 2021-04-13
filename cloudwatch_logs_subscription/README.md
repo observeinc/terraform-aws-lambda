@@ -4,6 +4,13 @@ Given a list of Cloudwatch Log Group names and an Observe lambda function, this
 module subscribes each Log Group to a lambda, creating necessary permissions
 along the way.
 
+By omission, the module abides by the principle of least privilege, only
+granting permission to invoke the lambda function to the provided cloudwatch
+log groups. If you have many log groups, the resulting lambda policy may
+overrun AWS limits. In such cases, you can set the `allow_all_log_groups`
+variable to use a single, more permissive policy, rather than a large set of
+restrictive ones.
+
 Terraform 0.12 and newer. Submit pull-requests to `main` branch.
 
 ## Usage
@@ -49,6 +56,7 @@ module "observe_lambda_cloudwatch_logs_subscription" {
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | account | Account ID for log groups. If empty, account is assumed to be the same as lambda | `string` | `""` | no |
+| allow\_all\_log\_groups | Create a single permission allowing lambda to be triggered by any log group.<br>This works around policy limits when subscribing many log groups to a single lambda." | `bool` | `false` | no |
 | filter\_name | Filter name | `string` | `"observe-filter"` | no |
 | filter\_pattern | The filter pattern to use. For more information, see [Filter and Pattern Syntax](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/FilterAndPatternSyntax.html) | `string` | `""` | no |
 | lambda | Observe Lambda module | <pre>object({<br>    arn           = string<br>    function_name = string<br>  })</pre> | n/a | yes |

@@ -11,6 +11,15 @@ variable "log_group_names" {
   type        = list(string)
 }
 
+variable "allow_all_log_groups" {
+  description = <<-EOF
+    Create a single permission allowing lambda to be triggered by any log group.
+    This works around policy limits when subscribing many log groups to a single lambda."
+  EOF
+  type        = bool
+  default     = false
+}
+
 variable "filter_pattern" {
   description = "The filter pattern to use. For more information, see [Filter and Pattern Syntax](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/FilterAndPatternSyntax.html)"
   type        = string
