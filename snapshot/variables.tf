@@ -31,6 +31,8 @@ variable "action" {
   type        = list(string)
   default = [
     "ec2:Describe*",
+    "ecs:List*",
+    "ecs:Describe*",
     "iam:Get*",
     "iam:List*",
     "lambda:List*",
