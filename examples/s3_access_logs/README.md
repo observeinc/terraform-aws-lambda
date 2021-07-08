@@ -29,29 +29,42 @@ Note that this will create AWS resources - once you are done, run `terraform des
 
 | Name | Version |
 |------|---------|
-| terraform | >= 0.12.21 |
-| aws | >= 2.68 |
-| random | >= 3.0.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.12.21 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 2.68 |
+| <a name="requirement_random"></a> [random](#requirement\_random) | >= 3.0.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| aws | >= 2.68 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 3.38.0 |
+
+## Modules
+
+| Name | Source | Version |
+|------|--------|---------|
+| <a name="module_observe_lambda"></a> [observe\_lambda](#module\_observe\_lambda) | ../.. | n/a |
+| <a name="module_observe_lambda_s3_subscription"></a> [observe\_lambda\_s3\_subscription](#module\_observe\_lambda\_s3\_subscription) | ../../s3_bucket_subscription | n/a |
+
+## Resources
+
+| Name | Type |
+|------|------|
+| [aws_s3_bucket.access_logs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket) | resource |
+| [aws_s3_bucket.monitored](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket) | resource |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| name | Lambda name | `string` | n/a | yes |
-| observe\_customer | Observe Customer ID | `string` | n/a | yes |
-| observe\_domain | Observe Domain | `string` | `"observeinc.com"` | no |
-| observe\_token | Observe token | `string` | n/a | yes |
+| <a name="input_name"></a> [name](#input\_name) | Lambda name | `string` | n/a | yes |
+| <a name="input_observe_customer"></a> [observe\_customer](#input\_observe\_customer) | Observe Customer ID | `string` | n/a | yes |
+| <a name="input_observe_domain"></a> [observe\_domain](#input\_observe\_domain) | Observe Domain | `string` | `"observeinc.com"` | no |
+| <a name="input_observe_token"></a> [observe\_token](#input\_observe\_token) | Observe token | `string` | n/a | yes |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| monitored | S3 bucket monitored with access logs |
-
+| <a name="output_monitored"></a> [monitored](#output\_monitored) | S3 bucket monitored with access logs |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

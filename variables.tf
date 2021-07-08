@@ -138,6 +138,7 @@ variable "vpc_config" {
   })
   default = null
 }
+
 variable "dead_letter_queue_destination" {
   type        = string
   default     = null
