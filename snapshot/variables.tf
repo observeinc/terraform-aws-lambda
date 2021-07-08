@@ -30,14 +30,18 @@ variable "action" {
   description = "List of actions to trigger"
   type        = list(string)
   default = [
+    "dynamodb:List*",
+    "dynamodb:Describe*",
     "ec2:Describe*",
     "ecs:List*",
     "ecs:Describe*",
+    "elbv2:Describe*",
     "iam:Get*",
     "iam:List*",
     "lambda:List*",
     "logs:Describe*",
     "rds:Describe*",
+    "redshift:Describe*",
     "route53:List*",
     "route53:Describe*",
     "s3:List*",
