@@ -7,6 +7,14 @@ All notable changes to this project will be documented in this file.
 
 
 
+<a name="v0.4.0"></a>
+## [v0.4.0] - 2021-07-08
+
+- pre-commit: bump versions, regenerate READMEs ([#10](https://github.com/observeinc/terraform-aws-lambda/issues/10))
+- snapshot: update default actions ([#9](https://github.com/observeinc/terraform-aws-lambda/issues/9))
+- Add dead_letter_queue_desitnation to the lambda function ([#8](https://github.com/observeinc/terraform-aws-lambda/issues/8))
+
+
 <a name="v0.3.0"></a>
 ## [v0.3.0] - 2021-06-22
 
@@ -36,6 +44,7 @@ All notable changes to this project will be documented in this file.
 - First commit
 
 
-[Unreleased]: https://github.com/observeinc/terraform-aws-lambda/compare/v0.3.0...HEAD
+[Unreleased]: https://github.com/observeinc/terraform-aws-lambda/compare/v0.4.0...HEAD
+[v0.4.0]: https://github.com/observeinc/terraform-aws-lambda/compare/v0.3.0...v0.4.0
 [v0.3.0]: https://github.com/observeinc/terraform-aws-lambda/compare/v0.2.0...v0.3.0
 [v0.2.0]: https://github.com/observeinc/terraform-aws-lambda/compare/v0.1.0...v0.2.0
