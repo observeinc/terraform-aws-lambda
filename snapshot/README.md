@@ -98,32 +98,45 @@ module "observe_lambda_snapshot" {
 
 | Name | Version |
 |------|---------|
-| terraform | >= 0.12.21 |
-| aws | >= 2.68 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.12.21 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 2.68 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| aws | >= 2.68 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 3.32.0 |
+
+## Modules
+
+No modules.
+
+## Resources
+
+| Name | Type |
+|------|------|
+| [aws_cloudwatch_event_rule.trigger](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_event_rule) | resource |
+| [aws_cloudwatch_event_target.target](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_event_target) | resource |
+| [aws_iam_policy.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
+| [aws_iam_role_policy_attachment.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
+| [aws_lambda_permission.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_permission) | resource |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| action | List of actions to trigger | `list(string)` | <pre>[<br>  "ec2:Describe*",<br>  "iam:Get*",<br>  "iam:List*",<br>  "lambda:List*",<br>  "logs:Describe*",<br>  "rds:Describe*",<br>  "route53:List*",<br>  "route53:Describe*",<br>  "s3:List*"<br>]</pre> | no |
-| eventbridge\_name\_prefix | Prefix used for eventbridge rule | `string` | `"observe-lambda-snapshot-"` | no |
-| eventbridge\_schedule\_event\_bus\_name | Event Bus for EventBridge scheduled events | `string` | `"default"` | no |
-| eventbridge\_schedule\_expression | Rate at which snapshot is triggered. Must be valid EventBridge expression | `string` | `"rate(3 hours)"` | no |
-| exclude | List of actions to exclude | `list(string)` | `[]` | no |
-| iam\_name\_prefix | Prefix used for all created IAM roles and policies | `string` | `"observe-lambda-snapshot-"` | no |
-| lambda | Observe Lambda module | <pre>object({<br>    lambda_function = object({<br>      arn  = string<br>      role = string<br>    })<br>  })</pre> | n/a | yes |
-| statement\_id\_prefix | Prefix used for Lambda permission statement ID | `string` | `"observe-lambda-snapshot"` | no |
+| <a name="input_action"></a> [action](#input\_action) | List of actions to trigger | `list(string)` | <pre>[<br>  "dynamodb:List*",<br>  "dynamodb:Describe*",<br>  "ec2:Describe*",<br>  "ecs:List*",<br>  "ecs:Describe*",<br>  "elbv2:Describe*",<br>  "iam:Get*",<br>  "iam:List*",<br>  "lambda:List*",<br>  "logs:Describe*",<br>  "rds:Describe*",<br>  "redshift:Describe*",<br>  "route53:List*",<br>  "route53:Describe*",<br>  "s3:List*"<br>]</pre> | no |
+| <a name="input_eventbridge_name_prefix"></a> [eventbridge\_name\_prefix](#input\_eventbridge\_name\_prefix) | Prefix used for eventbridge rule | `string` | `"observe-lambda-snapshot-"` | no |
+| <a name="input_eventbridge_schedule_event_bus_name"></a> [eventbridge\_schedule\_event\_bus\_name](#input\_eventbridge\_schedule\_event\_bus\_name) | Event Bus for EventBridge scheduled events | `string` | `"default"` | no |
+| <a name="input_eventbridge_schedule_expression"></a> [eventbridge\_schedule\_expression](#input\_eventbridge\_schedule\_expression) | Rate at which snapshot is triggered. Must be valid EventBridge expression | `string` | `"rate(3 hours)"` | no |
+| <a name="input_exclude"></a> [exclude](#input\_exclude) | List of actions to exclude | `list(string)` | `[]` | no |
+| <a name="input_iam_name_prefix"></a> [iam\_name\_prefix](#input\_iam\_name\_prefix) | Prefix used for all created IAM roles and policies | `string` | `"observe-lambda-snapshot-"` | no |
+| <a name="input_lambda"></a> [lambda](#input\_lambda) | Observe Lambda module | <pre>object({<br>    lambda_function = object({<br>      arn  = string<br>      role = string<br>    })<br>  })</pre> | n/a | yes |
+| <a name="input_statement_id_prefix"></a> [statement\_id\_prefix](#input\_statement\_id\_prefix) | Prefix used for Lambda permission statement ID | `string` | `"observe-lambda-snapshot"` | no |
 
 ## Outputs
 
-No output.
-
+No outputs.
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## License
