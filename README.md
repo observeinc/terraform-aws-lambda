@@ -70,6 +70,7 @@ This repository contains examples of how to solve for concrete usecases:
 | tags | A map of tags to add to all resources | `map(string)` | `{}` | no |
 | timeout | The amount of time that Lambda allows a function to run before stopping it.<br>The maximum allowed value is 900 seconds. | `number` | `60` | no |
 | vpc\_config | VPC Config | <pre>object({<br>    security_groups = list(object({<br>      id = string<br>    }))<br>    subnets = list(object({<br>      arn = string<br>      id  = string<br>    }))<br>  })</pre> | `null` | no |
+| dead\_letter_\queue\_destination|Send failed events/function executions to a dead letter queue arn sns or sqs| `string` | null | no |
 
 ## Outputs
 

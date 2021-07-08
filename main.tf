@@ -36,6 +36,12 @@ resource "aws_lambda_function" "this" {
       OBSERVE_TOKEN = format("%s %s", var.observe_customer, var.observe_token)
     }, var.lambda_envvars)
   }
+  dynamic "dead_letter_config" {
+    for_each            = var.dead_letter_queue_destination == null ? [] : [1]
+    content {
+      target_arn        = var.dead_letter_queue_destination
+    }
+  }
 
   depends_on = [
     aws_iam_role_policy_attachment.lambda_logs,

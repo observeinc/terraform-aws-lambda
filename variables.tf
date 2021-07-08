@@ -138,3 +138,8 @@ variable "vpc_config" {
   })
   default = null
 }
+variable "dead_letter_queue_destination" {
+  type        = string
+  default     = null
+  description = "Send failed events/function executions to a dead letter queue arn sns or sqs"
+}
