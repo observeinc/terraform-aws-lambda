@@ -125,7 +125,7 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_action"></a> [action](#input\_action) | List of actions to trigger | `list(string)` | <pre>[<br>  "dynamodb:List*",<br>  "dynamodb:Describe*",<br>  "ec2:Describe*",<br>  "ecs:List*",<br>  "ecs:Describe*",<br>  "elbv2:Describe*",<br>  "iam:Get*",<br>  "iam:List*",<br>  "lambda:List*",<br>  "logs:Describe*",<br>  "rds:Describe*",<br>  "redshift:Describe*",<br>  "route53:List*",<br>  "route53:Describe*",<br>  "s3:List*"<br>]</pre> | no |
+| <a name="input_action"></a> [action](#input\_action) | List of actions to trigger | `list(string)` | <pre>[<br>  "dynamodb:List*",<br>  "dynamodb:Describe*",<br>  "ec2:Describe*",<br>  "ecs:List*",<br>  "ecs:Describe*",<br>  "elasticache:Describe*",<br>  "elbv2:Describe*",<br>  "iam:Get*",<br>  "iam:List*",<br>  "lambda:List*",<br>  "logs:Describe*",<br>  "rds:Describe*",<br>  "redshift:Describe*",<br>  "route53:List*",<br>  "route53:Describe*",<br>  "s3:List*"<br>]</pre> | no |
 | <a name="input_eventbridge_name_prefix"></a> [eventbridge\_name\_prefix](#input\_eventbridge\_name\_prefix) | Prefix used for eventbridge rule | `string` | `"observe-lambda-snapshot-"` | no |
 | <a name="input_eventbridge_schedule_event_bus_name"></a> [eventbridge\_schedule\_event\_bus\_name](#input\_eventbridge\_schedule\_event\_bus\_name) | Event Bus for EventBridge scheduled events | `string` | `"default"` | no |
 | <a name="input_eventbridge_schedule_expression"></a> [eventbridge\_schedule\_expression](#input\_eventbridge\_schedule\_expression) | Rate at which snapshot is triggered. Must be valid EventBridge expression | `string` | `"rate(3 hours)"` | no |

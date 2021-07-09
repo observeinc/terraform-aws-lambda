@@ -35,6 +35,7 @@ variable "action" {
     "ec2:Describe*",
     "ecs:List*",
     "ecs:Describe*",
+    "elasticache:Describe*",
     "elbv2:Describe*",
     "iam:Get*",
     "iam:List*",
