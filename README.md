@@ -23,6 +23,8 @@ This module will create a Lambda. If no role ARN is provided, a new role will be
 Additionally, this repository provides submodules to interact with the lambda function set up by this module:
 
 * [Upload S3 objects using S3 bucket notifications](https://github.com/observeinc/terraform-aws-lambda/tree/main/s3_bucket_subscription)
+* [Subscribe CloudWatch Logs to Observe Lambda](https://github.com/observeinc/terraform-aws-lambda/tree/main/cloudwatch_logs_subscription)
+* [Collect API snapshots](https://github.com/observeinc/terraform-aws-lambda/tree/main/snapshot)
 
 ## Examples
 
@@ -30,6 +32,8 @@ This repository contains examples of how to solve for concrete usecases:
 
 * [S3 archive to Lambda](https://github.com/observeinc/terraform-aws-lambda/tree/main/examples/s3_bucket)
 * [Cloudtrail to Lambda via S3](https://github.com/observeinc/terraform-aws-lambda/tree/main/examples/cloudtrail)
+* [Configuring Lambda in private VPC](https://github.com/observeinc/terraform-aws-lambda/tree/main/examples/vpc_config)
+* [Collecting S3 Access Logs](https://github.com/observeinc/terraform-aws-lambda/tree/main/examples/s3_access_logs)
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements

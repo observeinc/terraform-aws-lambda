@@ -1,4 +1,4 @@
-# Lambda upload from S3 bucket
+# Lambda in private VPC
 
 The configuration in this directory documents how to setup the Observe Lambda in a private VPC.
 
