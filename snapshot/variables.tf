@@ -11,13 +11,13 @@ variable "lambda" {
 variable "iam_name_prefix" {
   description = "Prefix used for all created IAM roles and policies"
   type        = string
-  default     = "observe-lambda-snapshot-"
+  default     = ""
 }
 
 variable "statement_id_prefix" {
   description = "Prefix used for Lambda permission statement ID"
   type        = string
-  default     = "observe-lambda-snapshot"
+  default     = ""
 }
 
 variable "eventbridge_name_prefix" {

@@ -130,9 +130,9 @@ No modules.
 | <a name="input_eventbridge_schedule_event_bus_name"></a> [eventbridge\_schedule\_event\_bus\_name](#input\_eventbridge\_schedule\_event\_bus\_name) | Event Bus for EventBridge scheduled events | `string` | `"default"` | no |
 | <a name="input_eventbridge_schedule_expression"></a> [eventbridge\_schedule\_expression](#input\_eventbridge\_schedule\_expression) | Rate at which snapshot is triggered. Must be valid EventBridge expression | `string` | `"rate(3 hours)"` | no |
 | <a name="input_exclude"></a> [exclude](#input\_exclude) | List of actions to exclude | `list(string)` | `[]` | no |
-| <a name="input_iam_name_prefix"></a> [iam\_name\_prefix](#input\_iam\_name\_prefix) | Prefix used for all created IAM roles and policies | `string` | `"observe-lambda-snapshot-"` | no |
+| <a name="input_iam_name_prefix"></a> [iam\_name\_prefix](#input\_iam\_name\_prefix) | Prefix used for all created IAM roles and policies | `string` | `""` | no |
 | <a name="input_lambda"></a> [lambda](#input\_lambda) | Observe Lambda module | <pre>object({<br>    lambda_function = object({<br>      arn  = string<br>      role = string<br>    })<br>  })</pre> | n/a | yes |
-| <a name="input_statement_id_prefix"></a> [statement\_id\_prefix](#input\_statement\_id\_prefix) | Prefix used for Lambda permission statement ID | `string` | `"observe-lambda-snapshot"` | no |
+| <a name="input_statement_id_prefix"></a> [statement\_id\_prefix](#input\_statement\_id\_prefix) | Prefix used for Lambda permission statement ID | `string` | `""` | no |
 
 ## Outputs
 
