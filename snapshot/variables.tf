@@ -36,7 +36,7 @@ variable "action" {
     "ecs:List*",
     "ecs:Describe*",
     "elasticache:Describe*",
-    "elbv2:Describe*",
+    "elasticloadbalancing:Describe*",
     "iam:Get*",
     "iam:List*",
     "lambda:List*",
@@ -44,7 +44,6 @@ variable "action" {
     "rds:Describe*",
     "redshift:Describe*",
     "route53:List*",
-    "route53:Describe*",
     "s3:List*",
   ]
 }
