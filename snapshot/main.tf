@@ -28,6 +28,7 @@ resource "aws_iam_role_policy_attachment" "this" {
 
 resource "aws_cloudwatch_event_rule" "trigger" {
   name_prefix         = var.eventbridge_name_prefix
+  description         = "Periodically trigger Observe lambda to snapshot AWS API"
   schedule_expression = var.eventbridge_schedule_expression
   event_bus_name      = var.eventbridge_schedule_event_bus_name
 }
