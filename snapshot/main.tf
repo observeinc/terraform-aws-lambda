@@ -2,10 +2,12 @@ locals {
   role_name     = regex(".*role/(?P<role_name>.*)$", var.lambda.lambda_function.role)["role_name"]
   function_name = regex(".*:function:(?P<function_name>.*)$", var.lambda.lambda_function.arn)["function_name"]
 
+  iam_name_prefix     = var.iam_name_prefix != "" ? var.iam_name_prefix : var.eventbridge_name_prefix
+  statement_id_prefix = var.statement_id_prefix != "" ? var.statement_id_prefix : local.iam_name_prefix
 }
 
 resource "aws_iam_policy" "this" {
-  name_prefix = var.iam_name_prefix
+  name_prefix = local.iam_name_prefix
   policy = jsonencode({
 
     Version = "2012-10-17"
@@ -42,7 +44,7 @@ resource "aws_cloudwatch_event_target" "target" {
 }
 
 resource "aws_lambda_permission" "this" {
-  statement_id_prefix = var.statement_id_prefix
+  statement_id_prefix = local.statement_id_prefix
   action              = "lambda:InvokeFunction"
   principal           = "events.amazonaws.com"
   function_name       = local.function_name

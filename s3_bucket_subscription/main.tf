@@ -1,9 +1,10 @@
 locals {
-  role_name = regex(".*role/(?P<role_name>.*)$", var.lambda.role)["role_name"]
+  role_name           = regex(".*role/(?P<role_name>.*)$", var.lambda.role)["role_name"]
+  statement_id_prefix = var.statement_id_prefix != "" ? var.statement_id_prefix : var.iam_name_prefix
 }
 
 resource "aws_lambda_permission" "allow_bucket" {
-  statement_id_prefix = var.statement_id_prefix
+  statement_id_prefix = local.statement_id_prefix
   action              = "lambda:InvokeFunction"
   function_name       = var.lambda.arn
   principal           = "s3.amazonaws.com"

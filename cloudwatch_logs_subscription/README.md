@@ -73,6 +73,7 @@ No modules.
 | <a name="input_filter_pattern"></a> [filter\_pattern](#input\_filter\_pattern) | The filter pattern to use. For more information, see [Filter and Pattern Syntax](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/FilterAndPatternSyntax.html) | `string` | `""` | no |
 | <a name="input_lambda"></a> [lambda](#input\_lambda) | Observe Lambda module | <pre>object({<br>    arn           = string<br>    function_name = string<br>  })</pre> | n/a | yes |
 | <a name="input_log_group_names"></a> [log\_group\_names](#input\_log\_group\_names) | Cloudwatch Log Group names to subscribe to Observe Lambda | `list(string)` | n/a | yes |
+| <a name="input_statement_id_prefix"></a> [statement\_id\_prefix](#input\_statement\_id\_prefix) | Prefix used for Lambda permission statement ID | `string` | `"observe-lambda"` | no |
 
 ## Outputs
 

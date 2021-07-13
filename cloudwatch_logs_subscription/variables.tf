@@ -37,3 +37,9 @@ variable "account" {
   type        = string
   default     = ""
 }
+
+variable "statement_id_prefix" {
+  description = "Prefix used for Lambda permission statement ID"
+  type        = string
+  default     = "observe-lambda"
+}
