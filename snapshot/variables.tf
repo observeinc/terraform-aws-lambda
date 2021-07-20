@@ -37,6 +37,8 @@ variable "action" {
     "ecs:Describe*",
     "elasticache:Describe*",
     "elasticloadbalancing:Describe*",
+    "firehose:List*",
+    "firehose:Describe*",
     "iam:Get*",
     "iam:List*",
     "lambda:List*",
