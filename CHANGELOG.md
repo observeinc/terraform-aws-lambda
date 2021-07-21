@@ -7,6 +7,15 @@ All notable changes to this project will be documented in this file.
 
 
 
+<a name="v0.6.0"></a>
+## [v0.6.0] - 2021-07-21
+
+- cleanup: run pre-commit
+- lambda: add lambda_s3_custom_rules variable ([#17](https://github.com/observeinc/terraform-aws-lambda/issues/17))
+- snapshot: add description to eventbridge rule ([#15](https://github.com/observeinc/terraform-aws-lambda/issues/15))
+- snapshot: add firehose to default actions ([#16](https://github.com/observeinc/terraform-aws-lambda/issues/16))
+
+
 <a name="v0.5.0"></a>
 ## [v0.5.0] - 2021-07-12
 
@@ -53,7 +62,8 @@ All notable changes to this project will be documented in this file.
 - First commit
 
 
-[Unreleased]: https://github.com/observeinc/terraform-aws-lambda/compare/v0.5.0...HEAD
+[Unreleased]: https://github.com/observeinc/terraform-aws-lambda/compare/v0.6.0...HEAD
+[v0.6.0]: https://github.com/observeinc/terraform-aws-lambda/compare/v0.5.0...v0.6.0
 [v0.5.0]: https://github.com/observeinc/terraform-aws-lambda/compare/v0.4.0...v0.5.0
 [v0.4.0]: https://github.com/observeinc/terraform-aws-lambda/compare/v0.3.0...v0.4.0
 [v0.3.0]: https://github.com/observeinc/terraform-aws-lambda/compare/v0.2.0...v0.3.0
