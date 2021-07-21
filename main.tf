@@ -34,7 +34,10 @@ resource "aws_lambda_function" "this" {
     variables = merge({
       OBSERVE_URL   = format("https://collect.%s/v1/observations", var.observe_domain)
       OBSERVE_TOKEN = format("%s %s", var.observe_customer, var.observe_token)
-    }, var.lambda_envvars)
+      }, length(var.lambda_s3_custom_rules) > 0 ? {
+      S3_CUSTOM_RULES = base64encode(jsonencode(var.lambda_s3_custom_rules))
+      } : {}
+    , var.lambda_envvars)
   }
 
   dynamic "dead_letter_config" {

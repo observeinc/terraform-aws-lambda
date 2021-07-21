@@ -26,6 +26,15 @@ variable "lambda_version" {
   default     = "latest"
 }
 
+variable "lambda_s3_custom_rules" {
+  description = "List of rules to evaluate how to upload a given S3 object to Obsere."
+  type = list(object({
+    pattern = string
+    headers = map(string)
+  }))
+  default = []
+}
+
 variable "s3_key_prefix" {
   description = "S3 key containing lambda binaries"
   type        = string
