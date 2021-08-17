@@ -15,7 +15,7 @@ resource "aws_iam_policy" "this" {
       {
         Action   = var.action,
         Effect   = "Allow"
-        Resource = ["*"]
+        Resource = var.resources
       },
     ]
   })
@@ -38,8 +38,9 @@ resource "aws_cloudwatch_event_target" "target" {
   rule = aws_cloudwatch_event_rule.trigger.name
   input = jsonencode({
     snapshot = {
-      include = var.action
-      exclude = var.exclude
+      include   = var.action
+      exclude   = var.exclude
+      overrides = var.overrides
     }
   })
 }

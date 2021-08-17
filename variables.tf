@@ -27,7 +27,7 @@ variable "lambda_version" {
 }
 
 variable "lambda_s3_custom_rules" {
-  description = "List of rules to evaluate how to upload a given S3 object to Obsere."
+  description = "List of rules to evaluate how to upload a given S3 object to Observe"
   type = list(object({
     pattern = string
     headers = map(string)

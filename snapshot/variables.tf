@@ -62,6 +62,21 @@ variable "exclude" {
   default     = []
 }
 
+variable "resources" {
+  description = "List of resources to scope policy to."
+  type        = list(string)
+  default     = ["*"]
+}
+
+variable "overrides" {
+  description = "List of configuration overrides."
+  type = list(object({
+    action = string
+    config = map(any)
+  }))
+  default = []
+}
+
 variable "eventbridge_schedule_event_bus_name" {
   description = "Event Bus for EventBridge scheduled events"
   type        = string
