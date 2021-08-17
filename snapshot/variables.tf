@@ -39,6 +39,8 @@ variable "action" {
     "elasticloadbalancing:Describe*",
     "firehose:List*",
     "firehose:Describe*",
+    "kinesis:List*",
+    "kinesis:Describe*",
     "iam:Get*",
     "iam:List*",
     "lambda:List*",
@@ -47,6 +49,10 @@ variable "action" {
     "redshift:Describe*",
     "route53:List*",
     "s3:List*",
+    "sns:List*",
+    "sns:Get*",
+    "sqs:List*",
+    "sqs:Get*",
   ]
 }
 
