@@ -26,6 +26,16 @@ variable "lambda_version" {
   default     = "latest"
 }
 
+variable "lambda_architecture" {
+  description = "Architecture used"
+  type        = string
+  default     = "x86_64"
+  validation {
+    condition     = contains(["x86_64", "arm64"], var.lambda_architecture)
+    error_message = "Allowed values are \"x86_64\" and \"arm64\"."
+  }
+}
+
 variable "lambda_s3_custom_rules" {
   description = "List of rules to evaluate how to upload a given S3 object to Observe"
   type = list(object({
