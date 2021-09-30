@@ -27,37 +27,57 @@ variable "eventbridge_name_prefix" {
 }
 
 variable "action" {
-  description = "List of actions to trigger"
+  description = <<-EOF
+    List of actions allowed by policy and periodically triggered. By default,
+    this list contains all policies which the lambda can act upon. You should
+    only override this list if you do not want to execute more actions as they
+    become available in future lambda upgrades. If you instead wish to extend
+    this list, or ignore a subset of actions, use \"include\" and \"exclude\".
+  EOF
   type        = list(string)
   default = [
-    "dynamodb:List*",
+    "autoscaling:Describe*",
+    "cloudformation:Describe*",
     "dynamodb:Describe*",
+    "dynamodb:List*",
     "ec2:Describe*",
-    "ecs:List*",
     "ecs:Describe*",
+    "ecs:List*",
     "elasticache:Describe*",
     "elasticloadbalancing:Describe*",
-    "firehose:List*",
+    "events:List*",
     "firehose:Describe*",
-    "kinesis:List*",
-    "kinesis:Describe*",
+    "firehose:List*",
     "iam:Get*",
     "iam:List*",
+    "kinesis:Describe*",
+    "kinesis:List*",
+    "kms:Describe*",
+    "kms:List*",
     "lambda:List*",
     "logs:Describe*",
+    "organizations:Describe*",
+    "organizations:List*",
     "rds:Describe*",
     "redshift:Describe*",
     "route53:List*",
     "s3:List*",
-    "sns:List*",
+    "secretsmanager:List*",
     "sns:Get*",
-    "sqs:List*",
+    "sns:List*",
     "sqs:Get*",
+    "sqs:List*",
   ]
 }
 
+variable "include" {
+  description = "List of actions to include in snapshot request."
+  type        = list(string)
+  default     = []
+}
+
 variable "exclude" {
-  description = "List of actions to exclude"
+  description = "List of actions to exclude from being executed on snapshot request."
   type        = list(string)
   default     = []
 }
