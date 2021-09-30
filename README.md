@@ -47,7 +47,7 @@ This repository contains examples of how to solve for concrete usecases:
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 3.54.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 3.60.0 |
 
 ## Modules
 
