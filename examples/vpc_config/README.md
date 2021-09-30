@@ -31,7 +31,7 @@ Note that this will create AWS resources - once you are done, run `terraform des
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 3.32.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 3.54.0 |
 | <a name="provider_random"></a> [random](#provider\_random) | 3.1.0 |
 
 ## Modules

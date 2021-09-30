@@ -44,7 +44,7 @@ module "observe_lambda_s3_subscription" {
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 3.32.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 3.54.0 |
 
 ## Modules
 
