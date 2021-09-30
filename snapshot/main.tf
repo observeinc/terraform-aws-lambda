@@ -4,6 +4,7 @@ locals {
 
   iam_name_prefix     = var.iam_name_prefix != "" ? var.iam_name_prefix : var.eventbridge_name_prefix
   statement_id_prefix = var.statement_id_prefix != "" ? var.statement_id_prefix : local.iam_name_prefix
+  action              = concat(var.action, var.include)
 }
 
 resource "aws_iam_policy" "this" {
@@ -13,7 +14,7 @@ resource "aws_iam_policy" "this" {
     Version = "2012-10-17"
     Statement = [
       {
-        Action   = var.action,
+        Action   = local.action,
         Effect   = "Allow"
         Resource = var.resources
       },
@@ -38,7 +39,7 @@ resource "aws_cloudwatch_event_target" "target" {
   rule = aws_cloudwatch_event_rule.trigger.name
   input = jsonencode({
     snapshot = {
-      include   = var.action
+      include   = local.action
       exclude   = var.exclude
       overrides = var.overrides
     }
