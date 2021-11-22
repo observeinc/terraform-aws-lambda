@@ -7,8 +7,18 @@ All notable changes to this project will be documented in this file.
 
 
 
+<a name="v0.8.0"></a>
+## [v0.8.0] - 2021-11-22
+
+- feat: allow multiple buckets in s3_bucket_subscription ([#25](https://github.com/observeinc/terraform-aws-lambda/issues/25))
+- chore: update pre-commit ([#26](https://github.com/observeinc/terraform-aws-lambda/issues/26))
+- snapshot: allow extending as well as overriding actions ([#22](https://github.com/observeinc/terraform-aws-lambda/issues/22))
+- pre-commit: autoupdate ([#21](https://github.com/observeinc/terraform-aws-lambda/issues/21))
+- ci: add pre-commit checks ([#20](https://github.com/observeinc/terraform-aws-lambda/issues/20))
+
+
 <a name="v0.7.0"></a>
-## [v0.7.0] - 2021-08-16
+## [v0.7.0] - 2021-08-23
 
 - snapshot: extend permissions to Kinesis, SNS, SQS
 - snapshot: allow configuring overrides and resources
@@ -69,7 +79,8 @@ All notable changes to this project will be documented in this file.
 - First commit
 
 
-[Unreleased]: https://github.com/observeinc/terraform-aws-lambda/compare/v0.7.0...HEAD
+[Unreleased]: https://github.com/observeinc/terraform-aws-lambda/compare/v0.8.0...HEAD
+[v0.8.0]: https://github.com/observeinc/terraform-aws-lambda/compare/v0.7.0...v0.8.0
 [v0.7.0]: https://github.com/observeinc/terraform-aws-lambda/compare/v0.6.0...v0.7.0
 [v0.6.0]: https://github.com/observeinc/terraform-aws-lambda/compare/v0.5.0...v0.6.0
 [v0.5.0]: https://github.com/observeinc/terraform-aws-lambda/compare/v0.4.0...v0.5.0
