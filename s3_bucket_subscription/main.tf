@@ -1,18 +1,22 @@
 locals {
   role_name           = regex(".*role/(?P<role_name>.*)$", var.lambda.role)["role_name"]
   statement_id_prefix = var.statement_id_prefix != "" ? var.statement_id_prefix : var.iam_name_prefix
+  bucket_arns         = var.bucket == null ? var.bucket_arns : [var.bucket.arn]
+  bucket_count        = length(local.bucket_arns)
 }
 
 resource "aws_lambda_permission" "allow_bucket" {
+  count               = local.bucket_count
   statement_id_prefix = local.statement_id_prefix
   action              = "lambda:InvokeFunction"
   function_name       = var.lambda.arn
   principal           = "s3.amazonaws.com"
-  source_arn          = var.bucket.arn
+  source_arn          = local.bucket_arns[count.index]
 }
 
 resource "aws_s3_bucket_notification" "notification" {
-  bucket = var.bucket.id
+  count  = local.bucket_count
+  bucket = trimprefix(local.bucket_arns[count.index], "arn:aws:s3:::")
   lambda_function {
     lambda_function_arn = var.lambda.arn
     events              = ["s3:ObjectCreated:*"]
@@ -23,7 +27,6 @@ resource "aws_s3_bucket_notification" "notification" {
 
 resource "aws_iam_policy" "s3_bucket_read" {
   name_prefix = var.iam_name_prefix
-  # TODO: restrict to filter_prefix
   # s3:ListBucket is not strictly required, but it allows us to receive a 404
   # instead of 403 error if an S3 object no longer exists by the time our
   # lambda function tries to retrieve it
@@ -36,7 +39,7 @@ resource "aws_iam_policy" "s3_bucket_read" {
        "s3:ListBucket"
      ],
      "Effect": "Allow",
-     "Resource": "${var.bucket.arn}",
+     "Resource": ${jsonencode(local.bucket_arns)},
      "Condition":{
        "StringLike":{
          "s3:prefix":["${var.filter_prefix}*"]
@@ -48,7 +51,7 @@ resource "aws_iam_policy" "s3_bucket_read" {
         "s3:GetObject"
       ],
       "Effect": "Allow",
-      "Resource": "${var.bucket.arn}/${var.filter_prefix}*"
+      "Resource": ${jsonencode([for i in local.bucket_arns : format("%s/%s*", i, var.filter_prefix)])}
     }
   ]
 }
