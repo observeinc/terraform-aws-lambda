@@ -7,11 +7,21 @@ variable "lambda" {
 }
 
 variable "bucket" {
-  description = "S3 bucket to subscribe to Observe Lambda"
+  description = <<-EOF
+    S3 bucket to subscribe to Observe Lambda.
+    Deprecated: use bucket_arns instead.
+  EOF
   type = object({
     arn = string
     id  = string
   })
+  default = null
+}
+
+variable "bucket_arns" {
+  description = "S3 bucket ARNs to subscribe to Observe Lambda"
+  type        = list(string)
+  default     = []
 }
 
 variable "filter_prefix" {

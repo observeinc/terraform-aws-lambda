@@ -14,6 +14,12 @@ variable "observe_domain" {
   default     = "observeinc.com"
 }
 
+variable "bucket_count" {
+  description = "Number of buckets to create and subscribe."
+  type        = number
+  default     = 1
+}
+
 variable "filter_prefix" {
   description = "Specifies object key name prefix on S3 bucket notifications."
   type        = string
