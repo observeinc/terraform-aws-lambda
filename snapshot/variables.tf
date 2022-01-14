@@ -38,6 +38,7 @@ variable "action" {
   default = [
     "autoscaling:Describe*",
     "cloudformation:Describe*",
+    "cloudfront:List*",
     "dynamodb:Describe*",
     "dynamodb:List*",
     "ec2:Describe*",
