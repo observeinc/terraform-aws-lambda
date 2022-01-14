@@ -24,6 +24,7 @@ All notable changes to this project will be documented in this file.
 {{ end -}}
 {{ end -}}
 {{ end -}}
+{{ end -}}
 {{/* SKIPPING RULES - END */ -}}
 {{ end }}
 {{ end -}}
