@@ -32,7 +32,7 @@ resource "aws_lambda_function" "this" {
 
   environment {
     variables = merge({
-      OBSERVE_URL   = format("https://collect.%s/v1/observations", var.observe_domain)
+      OBSERVE_URL   = format("https://collect.%s/v1/http", var.observe_domain)
       OBSERVE_TOKEN = format("%s %s", var.observe_customer, var.observe_token)
       }, length(var.lambda_s3_custom_rules) > 0 ? {
       S3_CUSTOM_RULES = base64encode(jsonencode(var.lambda_s3_custom_rules))
