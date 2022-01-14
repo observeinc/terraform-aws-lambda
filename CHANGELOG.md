@@ -7,9 +7,19 @@ All notable changes to this project will be documented in this file.
 
 
 
+<a name="v0.9.0"></a>
+## [v0.9.0] - 2022-01-14
+
+- fix: adjust changelog generation
+- chore: update pre-commit ([#28](https://github.com/observeinc/terraform-aws-lambda/issues/28))
+- feat(snapshot): add cloudfront collection ([#27](https://github.com/observeinc/terraform-aws-lambda/issues/27))
+- fix: adjust collection endpoint ([#24](https://github.com/observeinc/terraform-aws-lambda/issues/24))
+
+
 <a name="v0.8.0"></a>
 ## [v0.8.0] - 2021-11-22
 
+- chore: update CHANGELOG
 - feat: allow multiple buckets in s3_bucket_subscription ([#25](https://github.com/observeinc/terraform-aws-lambda/issues/25))
 - chore: update pre-commit ([#26](https://github.com/observeinc/terraform-aws-lambda/issues/26))
 - snapshot: allow extending as well as overriding actions ([#22](https://github.com/observeinc/terraform-aws-lambda/issues/22))
@@ -79,7 +89,8 @@ All notable changes to this project will be documented in this file.
 - First commit
 
 
-[Unreleased]: https://github.com/observeinc/terraform-aws-lambda/compare/v0.8.0...HEAD
+[Unreleased]: https://github.com/observeinc/terraform-aws-lambda/compare/v0.9.0...HEAD
+[v0.9.0]: https://github.com/observeinc/terraform-aws-lambda/compare/v0.8.0...v0.9.0
 [v0.8.0]: https://github.com/observeinc/terraform-aws-lambda/compare/v0.7.0...v0.8.0
 [v0.7.0]: https://github.com/observeinc/terraform-aws-lambda/compare/v0.6.0...v0.7.0
 [v0.6.0]: https://github.com/observeinc/terraform-aws-lambda/compare/v0.5.0...v0.6.0
