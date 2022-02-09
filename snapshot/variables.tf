@@ -46,6 +46,7 @@ variable "action" {
     "ecs:List*",
     "eks:Describe*",
     "eks:List*",
+    "elasticbeanstalk:Describe*",
     "elasticache:Describe*",
     "elasticfilesystem:Describe*",
     "elasticloadbalancing:Describe*",
