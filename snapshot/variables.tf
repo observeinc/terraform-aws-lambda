@@ -36,6 +36,7 @@ variable "action" {
   EOF
   type        = list(string)
   default = [
+    "apigateway:Get*",
     "autoscaling:Describe*",
     "cloudformation:Describe*",
     "cloudfront:List*",
