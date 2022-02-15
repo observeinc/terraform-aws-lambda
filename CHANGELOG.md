@@ -7,9 +7,19 @@ All notable changes to this project will be documented in this file.
 
 
 
+<a name="v0.12.0"></a>
+## [v0.12.0] - 2022-02-15
+
+- feat(apigateway): collect apigateway data ([#34](https://github.com/observeinc/terraform-aws-lambda/issues/34))
+- fix: pin aws provider to < 4.0.0 ([#35](https://github.com/observeinc/terraform-aws-lambda/issues/35))
+- feat(snapshot): collect Elastic Beanstalk data
+- fix(snapshot): fix EFS permissions ([#32](https://github.com/observeinc/terraform-aws-lambda/issues/32))
+
+
 <a name="v0.11.0"></a>
 ## [v0.11.0] - 2022-01-31
 
+- chore: update CHANGELOG
 - feat(snapshot): collect EFS data ([#31](https://github.com/observeinc/terraform-aws-lambda/issues/31))
 - fix: add s3:GetBucket* to snapshot ([#30](https://github.com/observeinc/terraform-aws-lambda/issues/30))
 
@@ -104,7 +114,8 @@ All notable changes to this project will be documented in this file.
 - First commit
 
 
-[Unreleased]: https://github.com/observeinc/terraform-aws-lambda/compare/v0.11.0...HEAD
+[Unreleased]: https://github.com/observeinc/terraform-aws-lambda/compare/v0.12.0...HEAD
+[v0.12.0]: https://github.com/observeinc/terraform-aws-lambda/compare/v0.11.0...v0.12.0
 [v0.11.0]: https://github.com/observeinc/terraform-aws-lambda/compare/v0.10.0...v0.11.0
 [v0.10.0]: https://github.com/observeinc/terraform-aws-lambda/compare/v0.9.0...v0.10.0
 [v0.9.0]: https://github.com/observeinc/terraform-aws-lambda/compare/v0.8.0...v0.9.0
