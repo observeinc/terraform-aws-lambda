@@ -22,7 +22,7 @@ resource "aws_lambda_function" "this" {
   tags        = var.tags
 
   memory_size                    = var.memory_size
-  reserved_concurrent_executions = var.reserved_concurrent_executions
+  reserved_concurrent_executions = var.reserved_concurrent_executions < 0 ? null : var.reserved_concurrent_executions
   timeout                        = var.timeout
 
   vpc_config {
