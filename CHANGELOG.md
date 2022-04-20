@@ -7,9 +7,17 @@ All notable changes to this project will be documented in this file.
 
 
 
+<a name="v0.13.0"></a>
+## [v0.13.0] - 2022-04-20
+
+- feat(snapshot): collect emr ([#37](https://github.com/observeinc/terraform-aws-lambda/issues/37))
+- fix: support unreserved concurrency ([#36](https://github.com/observeinc/terraform-aws-lambda/issues/36))
+
+
 <a name="v0.12.0"></a>
 ## [v0.12.0] - 2022-02-15
 
+- chore: update CHANGELOG
 - feat(apigateway): collect apigateway data ([#34](https://github.com/observeinc/terraform-aws-lambda/issues/34))
 - fix: pin aws provider to < 4.0.0 ([#35](https://github.com/observeinc/terraform-aws-lambda/issues/35))
 - feat(snapshot): collect Elastic Beanstalk data
@@ -114,7 +122,8 @@ All notable changes to this project will be documented in this file.
 - First commit
 
 
-[Unreleased]: https://github.com/observeinc/terraform-aws-lambda/compare/v0.12.0...HEAD
+[Unreleased]: https://github.com/observeinc/terraform-aws-lambda/compare/v0.13.0...HEAD
+[v0.13.0]: https://github.com/observeinc/terraform-aws-lambda/compare/v0.12.0...v0.13.0
 [v0.12.0]: https://github.com/observeinc/terraform-aws-lambda/compare/v0.11.0...v0.12.0
 [v0.11.0]: https://github.com/observeinc/terraform-aws-lambda/compare/v0.10.0...v0.11.0
 [v0.10.0]: https://github.com/observeinc/terraform-aws-lambda/compare/v0.9.0...v0.10.0
