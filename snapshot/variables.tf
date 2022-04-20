@@ -51,6 +51,8 @@ variable "action" {
     "elasticache:Describe*",
     "elasticfilesystem:Describe*",
     "elasticloadbalancing:Describe*",
+    "elasticmapreduce:Describe*",
+    "elasticmapreduce:List*",
     "events:List*",
     "firehose:Describe*",
     "firehose:List*",
