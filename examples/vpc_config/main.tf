@@ -8,7 +8,7 @@ resource "random_pet" "run" {
 }
 
 module "observe_lambda" {
-  source = "../.."
+  source = "observeinc/lambda/aws"
 
   name             = random_pet.run.id
   observe_domain   = var.observe_domain

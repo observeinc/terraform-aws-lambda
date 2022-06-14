@@ -18,7 +18,7 @@ resource "aws_s3_bucket" "bucket" {
 }
 
 module "observe_lambda" {
-  source           = "../.."
+  source           = "observeinc/lambda/aws"
   observe_customer = var.observe_customer
   observe_token    = var.observe_token
   observe_domain   = var.observe_domain
@@ -26,7 +26,7 @@ module "observe_lambda" {
 }
 
 module "observe_lambda_s3_subscription" {
-  source      = "../../s3_bucket_subscription"
+  source      = "observeinc/lambda/aws//modules/s3_bucket_subscription"
   lambda      = module.observe_lambda.lambda_function
   bucket_arns = [aws_s3_bucket.bucket.arn]
 }

@@ -46,7 +46,7 @@ Note that this will create AWS resources - once you are done, run `terraform des
 | <a name="module_cloudtrail"></a> [cloudtrail](#module\_cloudtrail) | cloudposse/cloudtrail/aws | 0.15.0 |
 | <a name="module_cloudtrail_s3_bucket"></a> [cloudtrail\_s3\_bucket](#module\_cloudtrail\_s3\_bucket) | cloudposse/cloudtrail-s3-bucket/aws | 0.15.0 |
 | <a name="module_observe_lambda"></a> [observe\_lambda](#module\_observe\_lambda) | ../.. | n/a |
-| <a name="module_observe_lambda_s3_subscription"></a> [observe\_lambda\_s3\_subscription](#module\_observe\_lambda\_s3\_subscription) | ../../s3_bucket_subscription | n/a |
+| <a name="module_observe_lambda_s3_subscription"></a> [observe\_lambda\_s3\_subscription](#module\_observe\_lambda\_s3\_subscription) | ../..//modules/s3_bucket_subscription | n/a |
 
 ## Resources
 

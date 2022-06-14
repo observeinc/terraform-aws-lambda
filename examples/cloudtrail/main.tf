@@ -31,7 +31,7 @@ module "observe_lambda" {
 }
 
 module "observe_lambda_s3_subscription" {
-  source = "../../s3_bucket_subscription"
+  source = "../..//modules/s3_bucket_subscription"
   lambda = module.observe_lambda.lambda_function
   bucket = {
     arn = module.cloudtrail_s3_bucket.bucket_arn
