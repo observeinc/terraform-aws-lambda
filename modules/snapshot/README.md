@@ -13,7 +13,7 @@ Terraform 0.12 and newer. Submit pull-requests to `main` branch.
 
 ```hcl
 module "observe_lambda" {
-  source           = "../.."
+  source           = "observeinc/lambda/aws"
   observe_customer = var.observe_customer
   observe_token    = var.observe_token
   observe_domain   = var.observe_domain
@@ -21,7 +21,7 @@ module "observe_lambda" {
 }
 
 module "observe_lambda_snapshot" {
-  source = "../../snapshot"
+  source = "observeinc/lambda/aws//modules/snapshot"
   lambda = module.observe_lambda
 }
 ```
@@ -34,7 +34,7 @@ collect data from EC2 endpoints beginning with `Describe`, you would use:
 
 ```hcl
 module "observe_lambda_snapshot" {
-  source = "../../snapshot"
+  source = "observeinc/lambda/aws//modules/snapshot"
   lambda = module.observe_lambda
   action = [
     "ec2:Describe*"
@@ -47,7 +47,7 @@ variable.
 
 ```hcl
 module "observe_lambda_snapshot" {
-  source = "../../snapshot"
+  source = "observeinc/lambda/aws//modules/snapshot"
   lambda = module.observe_lambda
   action = [
     "ec2:Describe*"
@@ -79,14 +79,14 @@ locals = {
 }
 # Collect from all endpoints in subset
 module "observe_lambda_snapshot" {
-  source = "../../snapshot"
+  source = "observeinc/lambda/aws//modules/snapshot"
   lambda = module.observe_lambda
   action = local.partial
 }
 
 # Collect from all other endpoints
 module "observe_lambda_snapshot" {
-  source  = "../../snapshot"
+  source = "observeinc/lambda/aws//modules/snapshot"
   lambda  = module.observe_lambda
   exclude = local.partial
 }

@@ -44,7 +44,7 @@ Note that this will create AWS resources - once you are done, run `terraform des
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_observe_lambda"></a> [observe\_lambda](#module\_observe\_lambda) | ../.. | n/a |
-| <a name="module_observe_lambda_s3_subscription"></a> [observe\_lambda\_s3\_subscription](#module\_observe\_lambda\_s3\_subscription) | ../../s3_bucket_subscription | n/a |
+| <a name="module_observe_lambda_s3_subscription"></a> [observe\_lambda\_s3\_subscription](#module\_observe\_lambda\_s3\_subscription) | ../..//modules/s3_bucket_subscription | n/a |
 
 ## Resources
 

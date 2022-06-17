@@ -18,7 +18,7 @@ module "observe_lambda" {
 }
 
 module "observe_lambda_s3_subscription" {
-  source        = "../../s3_bucket_subscription"
+  source        = "../..//modules/s3_bucket_subscription"
   lambda        = module.observe_lambda.lambda_function
   bucket_arns   = [for bucket in aws_s3_bucket.bucket : bucket.arn]
   filter_prefix = var.filter_prefix
