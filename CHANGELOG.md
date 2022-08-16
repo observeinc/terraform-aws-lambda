@@ -7,9 +7,18 @@ All notable changes to this project will be documented in this file.
 
 
 
+<a name="v1.0.0"></a>
+## [v1.0.0] - 2022-08-16
+
+- fix!: remove cloudwatch_logs_subscription module ([#38](https://github.com/observeinc/terraform-aws-lambda/issues/38))
+- feat!: use per-customer collector endpoint ([#40](https://github.com/observeinc/terraform-aws-lambda/issues/40))
+- fix!: move submodules to modules/ directory ([#39](https://github.com/observeinc/terraform-aws-lambda/issues/39))
+
+
 <a name="v0.13.0"></a>
 ## [v0.13.0] - 2022-04-20
 
+- chore: bump CHANGELOG
 - feat(snapshot): collect emr ([#37](https://github.com/observeinc/terraform-aws-lambda/issues/37))
 - fix: support unreserved concurrency ([#36](https://github.com/observeinc/terraform-aws-lambda/issues/36))
 
@@ -122,7 +131,8 @@ All notable changes to this project will be documented in this file.
 - First commit
 
 
-[Unreleased]: https://github.com/observeinc/terraform-aws-lambda/compare/v0.13.0...HEAD
+[Unreleased]: https://github.com/observeinc/terraform-aws-lambda/compare/v1.0.0...HEAD
+[v1.0.0]: https://github.com/observeinc/terraform-aws-lambda/compare/v0.13.0...v1.0.0
 [v0.13.0]: https://github.com/observeinc/terraform-aws-lambda/compare/v0.12.0...v0.13.0
 [v0.12.0]: https://github.com/observeinc/terraform-aws-lambda/compare/v0.11.0...v0.12.0
 [v0.11.0]: https://github.com/observeinc/terraform-aws-lambda/compare/v0.10.0...v0.11.0
