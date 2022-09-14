@@ -76,6 +76,8 @@ variable "action" {
     "sns:List*",
     "sqs:Get*",
     "sqs:List*",
+    "synthetics:Describe*",
+    "synthetics:List*",
   ]
 }
 
