@@ -38,7 +38,7 @@ Note that this will create AWS resources - once you are done, run `terraform des
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_observe_lambda"></a> [observe\_lambda](#module\_observe\_lambda) | observeinc/lambda/aws | n/a |
+| <a name="module_observe_lambda"></a> [observe\_lambda](#module\_observe\_lambda) | ../.. | n/a |
 
 ## Resources
 
