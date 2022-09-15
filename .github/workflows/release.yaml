@@ -1,0 +1,9 @@
+name: Release and push
+on:
+  workflow_dispatch:
+
+jobs:
+  bump:
+    uses: observeinc/.github/.github/workflows/terraform_release.yaml@main
+    release-count: 1
+    secrets: inherit
