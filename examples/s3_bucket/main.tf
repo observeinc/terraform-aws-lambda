@@ -5,8 +5,13 @@ resource "random_pet" "run" {
 resource "aws_s3_bucket" "bucket" {
   count         = var.bucket_count
   bucket        = format("%s-%d", random_pet.run.id, count.index)
-  acl           = "private"
   force_destroy = true
+}
+
+resource "aws_s3_bucket_acl" "bucket" {
+  count  = var.bucket_count
+  bucket = aws_s3_bucket.bucket[count.index].id
+  acl    = "private"
 }
 
 module "observe_lambda" {
@@ -25,7 +30,7 @@ module "observe_lambda_s3_subscription" {
   filter_suffix = var.filter_suffix
 }
 
-resource "aws_s3_bucket_object" "example" {
+resource "aws_s3_object" "example" {
   depends_on = [module.observe_lambda_s3_subscription]
   count      = length(aws_s3_bucket.bucket)
   key        = "example.json"
