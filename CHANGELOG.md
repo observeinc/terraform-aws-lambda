@@ -1,9 +1,9 @@
-# [1.1.0](https://github.com/observeinc/terraform-aws-lambda/compare/v1.0.0...v1.1.0) (2022-09-15)
+## [1.1.1](https://github.com/observeinc/terraform-aws-lambda/compare/v1.1.0...v1.1.1) (2022-11-21)
 
 
-### Features
+### Bug Fixes
 
-* add synthetics commands to action default ([3b24ca7](https://github.com/observeinc/terraform-aws-lambda/commit/3b24ca7fcf8b6f9d81ddb3d2f26f61e836c2050f))
+* support aws provider 4.0+ ([#43](https://github.com/observeinc/terraform-aws-lambda/issues/43)) ([01ea43c](https://github.com/observeinc/terraform-aws-lambda/commit/01ea43ca12b59914d18f8ce6a69723f68ccce6d7))
 
 
 
