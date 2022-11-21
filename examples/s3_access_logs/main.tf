@@ -2,13 +2,16 @@ provider "aws" {}
 
 resource "aws_s3_bucket" "monitored" {
   bucket        = format("%s-access-logs", var.name)
-  acl           = "log-delivery-write"
   force_destroy = true
+}
+
+resource "aws_s3_bucket_acl" "monitored" {
+  bucket = aws_s3_bucket.monitored.id
+  acl    = "log-delivery-write"
 }
 
 resource "aws_s3_bucket" "access_logs" {
   bucket = var.name
-  acl    = "private"
 
   logging {
     target_bucket = aws_s3_bucket.monitored.id
@@ -16,6 +19,11 @@ resource "aws_s3_bucket" "access_logs" {
   }
 
   force_destroy = true
+}
+
+resource "aws_s3_bucket_acl" "access_logs" {
+  bucket = aws_s3_bucket.access_logs.id
+  acl    = "private"
 }
 
 module "observe_lambda" {
