@@ -39,6 +39,7 @@ variable "action" {
     "apigateway:Get*",
     "autoscaling:Describe*",
     "cloudformation:Describe*",
+    "cloudformation:List*",
     "cloudfront:List*",
     "dynamodb:Describe*",
     "dynamodb:List*",
