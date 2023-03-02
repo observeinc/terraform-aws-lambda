@@ -8,7 +8,7 @@ variable "lambda" {
 
 variable "bucket_arns" {
   description = "S3 bucket ARNs to subscribe to Observe Lambda"
-  type        = list(string)
+  type        = set(string)
   nullable    = false
   default     = []
 }
