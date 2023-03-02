@@ -3,6 +3,11 @@ locals {
   statement_id_prefix = var.statement_id_prefix != "" ? var.statement_id_prefix : var.iam_name_prefix
 }
 
+data "aws_arn" "bucket" {
+  for_each = var.bucket_arns
+  arn      = each.key
+}
+
 resource "aws_lambda_permission" "allow_bucket" {
   for_each            = var.bucket_arns
   statement_id_prefix = local.statement_id_prefix
@@ -14,7 +19,7 @@ resource "aws_lambda_permission" "allow_bucket" {
 
 resource "aws_s3_bucket_notification" "notification" {
   for_each = var.bucket_arns
-  bucket   = trimprefix(each.key, "arn:aws:s3:::")
+  bucket   = data.aws_arn.bucket[each.key].resource
   lambda_function {
     lambda_function_arn = var.lambda.arn
     events              = ["s3:ObjectCreated:*"]
