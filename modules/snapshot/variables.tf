@@ -11,18 +11,21 @@ variable "lambda" {
 variable "iam_name_prefix" {
   description = "Prefix used for all created IAM roles and policies"
   type        = string
+  nullable    = false
   default     = ""
 }
 
 variable "statement_id_prefix" {
   description = "Prefix used for Lambda permission statement ID"
   type        = string
+  nullable    = false
   default     = ""
 }
 
 variable "eventbridge_name_prefix" {
   description = "Prefix used for eventbridge rule"
   type        = string
+  nullable    = false
   default     = "observe-lambda-snapshot-"
 }
 
@@ -35,6 +38,7 @@ variable "action" {
     this list, or ignore a subset of actions, use \"include\" and \"exclude\".
   EOF
   type        = list(string)
+  nullable    = false
   default = [
     "apigateway:Get*",
     "autoscaling:Describe*",
@@ -85,18 +89,21 @@ variable "action" {
 variable "include" {
   description = "List of actions to include in snapshot request."
   type        = list(string)
+  nullable    = false
   default     = []
 }
 
 variable "exclude" {
   description = "List of actions to exclude from being executed on snapshot request."
   type        = list(string)
+  nullable    = false
   default     = []
 }
 
 variable "resources" {
   description = "List of resources to scope policy to."
   type        = list(string)
+  nullable    = false
   default     = ["*"]
 }
 
@@ -106,17 +113,20 @@ variable "overrides" {
     action = string
     config = map(any)
   }))
-  default = []
+  nullable = false
+  default  = []
 }
 
 variable "eventbridge_schedule_event_bus_name" {
   description = "Event Bus for EventBridge scheduled events"
   type        = string
+  nullable    = false
   default     = "default"
 }
 
 variable "eventbridge_schedule_expression" {
   description = "Rate at which snapshot is triggered. Must be valid EventBridge expression"
   type        = string
+  nullable    = false
   default     = "rate(3 hours)"
 }
