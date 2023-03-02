@@ -1,22 +1,20 @@
 locals {
   role_name           = regex(".*role/(?P<role_name>.*)$", var.lambda.role)["role_name"]
   statement_id_prefix = var.statement_id_prefix != "" ? var.statement_id_prefix : var.iam_name_prefix
-  bucket_arns         = var.bucket_arns
-  bucket_count        = length(var.bucket_arns)
 }
 
 resource "aws_lambda_permission" "allow_bucket" {
-  count               = local.bucket_count
+  for_each            = var.bucket_arns
   statement_id_prefix = local.statement_id_prefix
   action              = "lambda:InvokeFunction"
   function_name       = var.lambda.arn
   principal           = "s3.amazonaws.com"
-  source_arn          = local.bucket_arns[count.index]
+  source_arn          = each.key
 }
 
 resource "aws_s3_bucket_notification" "notification" {
-  count  = local.bucket_count
-  bucket = trimprefix(local.bucket_arns[count.index], "arn:aws:s3:::")
+  for_each = var.bucket_arns
+  bucket   = trimprefix(each.key, "arn:aws:s3:::")
   lambda_function {
     lambda_function_arn = var.lambda.arn
     events              = ["s3:ObjectCreated:*"]
@@ -39,7 +37,7 @@ resource "aws_iam_policy" "s3_bucket_read" {
        "s3:ListBucket"
      ],
      "Effect": "Allow",
-     "Resource": ${jsonencode(local.bucket_arns)},
+     "Resource": ${jsonencode(var.bucket_arns)},
      "Condition":{
        "StringLike":{
          "s3:prefix":["${var.filter_prefix}*"]
@@ -51,7 +49,7 @@ resource "aws_iam_policy" "s3_bucket_read" {
         "s3:GetObject"
       ],
       "Effect": "Allow",
-      "Resource": ${jsonencode([for i in local.bucket_arns : format("%s/%s*", i, var.filter_prefix)])}
+      "Resource": ${jsonencode([for i in var.bucket_arns : format("%s/%s*", i, var.filter_prefix)])}
     }
   ]
 }
