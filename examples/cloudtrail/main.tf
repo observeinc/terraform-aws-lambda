@@ -31,12 +31,9 @@ module "observe_lambda" {
 }
 
 module "observe_lambda_s3_subscription" {
-  source = "../..//modules/s3_bucket_subscription"
-  lambda = module.observe_lambda.lambda_function
-  bucket = {
-    arn = module.cloudtrail_s3_bucket.bucket_arn
-    id  = module.cloudtrail_s3_bucket.bucket_id
-  }
+  source      = "../..//modules/s3_bucket_subscription"
+  lambda      = module.observe_lambda.lambda_function
+  bucket_arns = [module.cloudtrail_s3_bucket.bucket_arn, ]
 
   # ensure we delete our policy attachments before tearing down policy
   # attachments in the following module, otherwise we hit "conflicting

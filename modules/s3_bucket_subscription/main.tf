@@ -1,8 +1,8 @@
 locals {
   role_name           = regex(".*role/(?P<role_name>.*)$", var.lambda.role)["role_name"]
   statement_id_prefix = var.statement_id_prefix != "" ? var.statement_id_prefix : var.iam_name_prefix
-  bucket_arns         = var.bucket == null ? var.bucket_arns : [var.bucket.arn]
-  bucket_count        = length(local.bucket_arns)
+  bucket_arns         = var.bucket_arns
+  bucket_count        = length(var.bucket_arns)
 }
 
 resource "aws_lambda_permission" "allow_bucket" {
