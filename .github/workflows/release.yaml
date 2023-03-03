@@ -1,10 +1,17 @@
 name: Release and push
 on:
   workflow_dispatch:
+    inputs:
+      push:
+        required: false
+        type: boolean
+        description: Pushes the release commit and tag. Disable this to perform a dry-run. 
+        default: true
 
 jobs:
   bump:
-    uses: observeinc/.github/.github/workflows/terraform_release.yaml@main
+    uses: observeinc/.github/.github/workflows/terraform_release.yaml@release-push
     secrets: inherit
     with:
       release-count: 1
+      push: ${{ inputs.push }}
