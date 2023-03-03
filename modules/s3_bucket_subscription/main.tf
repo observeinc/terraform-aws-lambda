@@ -9,19 +9,19 @@ data "aws_arn" "bucket" {
 }
 
 resource "aws_lambda_permission" "allow_bucket" {
-  count               = length(var.bucket_arns)
+  count               = length(data.aws_arn.bucket)
   statement_id_prefix = local.statement_id_prefix
   action              = "lambda:InvokeFunction"
   function_name       = var.lambda.arn
   principal           = "s3.amazonaws.com"
-  source_arn          = var.bucket_arns[count.index]
+  source_arn          = data.aws_arn.bucket[count.index].arn
 }
 
 resource "aws_s3_bucket_notification" "notification" {
-  count  = length(data.aws_arn.bucket)
+  count  = length(aws_lambda_permission.allow_bucket)
   bucket = data.aws_arn.bucket[count.index].resource
   lambda_function {
-    lambda_function_arn = var.lambda.arn
+    lambda_function_arn = aws_lambda_permission.allow_bucket[count.index].function_name
     events              = ["s3:ObjectCreated:*"]
     filter_prefix       = var.filter_prefix
     filter_suffix       = var.filter_suffix
