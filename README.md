@@ -2,15 +2,11 @@
 
 Terraform module which sets up a Lambda to forward event data towards Observe.
 
-## Terraform versions
-
-Terraform 0.12 and newer. Submit pull-requests to `main` branch.
-
 ## Usage
 
 ```hcl
 module "observe_lambda" {
-  source = "github.com/observeinc/terraform-aws-lambda"
+  source = "observeinc/lambda/aws"
 
   name                = "observe-lambda"
   observe_customer    = "<id>"

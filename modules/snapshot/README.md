@@ -5,10 +5,6 @@ module sets up an event rule in EventBridge which triggers the Observe Lambda
 periodically. Additionally, the module will add a policy to the existing lambda
 to ensure that all requested endpoints are accessible.
 
-## Terraform versions
-
-Terraform 0.12 and newer. Submit pull-requests to `main` branch.
-
 ## Usage
 
 ```hcl

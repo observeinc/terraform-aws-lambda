@@ -11,8 +11,6 @@ overrun AWS limits. In such cases, you can set the `allow_all_log_groups`
 variable to use a single, more permissive policy, rather than a large set of
 restrictive ones.
 
-Terraform 0.12 and newer. Submit pull-requests to `main` branch.
-
 ## Usage
 
 ```hcl
@@ -21,7 +19,7 @@ resource "aws_cloudwatch_log_group" "group" {
 }
 
 module "observe_lambda" {
-  source           = "github.com/observeinc/terraform-aws-lambda"
+  source           = "observeinc/lambda/aws"
   observe_customer = var.observe_customer
   observe_token    = var.observe_token
   observe_domain   = var.observe_domain
@@ -29,7 +27,7 @@ module "observe_lambda" {
 }
 
 module "observe_lambda_cloudwatch_logs_subscription" {
-  source = "github.com/observeinc/terraform-aws-lambda//cloudwatch_logs_subscription"
+  source = "observeinc/lambda/aws//cloudwatch_logs_subscription"
   lambda = module.observe_lambda.lambda_function
   log_group_names = [
     aws_cloudwatch_log_group.group.name
