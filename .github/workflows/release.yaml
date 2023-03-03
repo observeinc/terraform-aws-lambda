@@ -4,7 +4,8 @@ on:
 
 jobs:
   bump:
-    uses: observeinc/.github/.github/workflows/terraform_release.yaml@main
+    uses: observeinc/.github/.github/workflows/terraform_release.yaml@release-push
     secrets: inherit
     with:
       release-count: 1
+      push: false
