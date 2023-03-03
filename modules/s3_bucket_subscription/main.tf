@@ -4,22 +4,22 @@ locals {
 }
 
 data "aws_arn" "bucket" {
-  for_each = var.bucket_arns
-  arn      = each.key
+  count = length(var.bucket_arns)
+  arn   = var.bucket_arns[count.index]
 }
 
 resource "aws_lambda_permission" "allow_bucket" {
-  for_each            = var.bucket_arns
+  count               = length(var.bucket_arns)
   statement_id_prefix = local.statement_id_prefix
   action              = "lambda:InvokeFunction"
   function_name       = var.lambda.arn
   principal           = "s3.amazonaws.com"
-  source_arn          = each.key
+  source_arn          = var.bucket_arns[count.index]
 }
 
 resource "aws_s3_bucket_notification" "notification" {
-  for_each = var.bucket_arns
-  bucket   = data.aws_arn.bucket[each.key].resource
+  count  = length(data.aws_arn.bucket)
+  bucket = data.aws_arn.bucket[count.index].resource
   lambda_function {
     lambda_function_arn = var.lambda.arn
     events              = ["s3:ObjectCreated:*"]

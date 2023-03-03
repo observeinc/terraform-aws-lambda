@@ -64,7 +64,7 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_bucket_arns"></a> [bucket\_arns](#input\_bucket\_arns) | S3 bucket ARNs to subscribe to Observe Lambda | `set(string)` | `[]` | no |
+| <a name="input_bucket_arns"></a> [bucket\_arns](#input\_bucket\_arns) | S3 bucket ARNs to subscribe to Observe Lambda | `list(string)` | `[]` | no |
 | <a name="input_filter_prefix"></a> [filter\_prefix](#input\_filter\_prefix) | Specifies object key name prefix on S3 bucket notifications. | `string` | `""` | no |
 | <a name="input_filter_suffix"></a> [filter\_suffix](#input\_filter\_suffix) | Specifies object key name suffix on S3 bucket notifications. | `string` | `""` | no |
 | <a name="input_iam_name_prefix"></a> [iam\_name\_prefix](#input\_iam\_name\_prefix) | Prefix used for all created IAM roles and policies | `string` | `"observe-lambda-"` | no |
