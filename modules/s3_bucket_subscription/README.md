@@ -4,10 +4,6 @@ Given an S3 bucket and an Observe lambda function, this module notifies the
 lambda on object creation events, and grants the necessary permissions for the
 lambda function to retrieve the newly created object.
 
-## Terraform versions
-
-Terraform 0.12 and newer. Submit pull-requests to `main` branch.
-
 ## Usage
 
 ```hcl
@@ -18,7 +14,7 @@ resource "aws_s3_bucket" "bucket" {
 }
 
 module "observe_lambda" {
-  source           = "github.com/observeinc/terraform-aws-lambda"
+  source           = "observeinc/lambda/aws"
   observe_customer = var.observe_customer
   observe_token    = var.observe_token
   observe_domain   = var.observe_domain
@@ -26,7 +22,7 @@ module "observe_lambda" {
 }
 
 module "observe_lambda_s3_subscription" {
-  source      = "github.com/observeinc/terraform-aws-lambda//modules/s3_bucket_subscription"
+  source      = "observeinc/lambda/aws//modules/s3_bucket_subscription"
   lambda      = module.observe_lambda.lambda_function
   bucket_arns = [aws_s3_bucket.bucket.arn]
 }
