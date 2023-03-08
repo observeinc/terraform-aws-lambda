@@ -23,7 +23,7 @@ variable "statement_id_prefix" {
 }
 
 variable "eventbridge_name_prefix" {
-  description = "Prefix used for eventbridge rule"
+  description = "Prefix used for EventBridge Rule"
   type        = string
   nullable    = false
   default     = "observe-lambda-snapshot-"

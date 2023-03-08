@@ -74,14 +74,14 @@ locals = {
     ]
 }
 # Collect from all endpoints in subset
-module "observe_lambda_snapshot" {
+module "observe_lambda_snapshot_a" {
   source = "observeinc/lambda/aws//modules/snapshot"
   lambda = module.observe_lambda
   action = local.partial
 }
 
 # Collect from all other endpoints
-module "observe_lambda_snapshot" {
+module "observe_lambda_snapshot_b" {
   source = "observeinc/lambda/aws//modules/snapshot"
   lambda  = module.observe_lambda
   exclude = local.partial
@@ -116,13 +116,15 @@ No modules.
 | [aws_iam_policy.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_role_policy_attachment.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_lambda_permission.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_permission) | resource |
+| [aws_arn.function](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/arn) | data source |
+| [aws_arn.role](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/arn) | data source |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_action"></a> [action](#input\_action) | List of actions allowed by policy and periodically triggered. By default,<br>this list contains all policies which the lambda can act upon. You should<br>only override this list if you do not want to execute more actions as they<br>become available in future lambda upgrades. If you instead wish to extend<br>this list, or ignore a subset of actions, use \"include\" and \"exclude\". | `list(string)` | <pre>[<br>  "apigateway:Get*",<br>  "autoscaling:Describe*",<br>  "cloudformation:Describe*",<br>  "cloudformation:List*",<br>  "cloudfront:List*",<br>  "dynamodb:Describe*",<br>  "dynamodb:List*",<br>  "ec2:Describe*",<br>  "ecs:Describe*",<br>  "ecs:List*",<br>  "eks:Describe*",<br>  "eks:List*",<br>  "elasticbeanstalk:Describe*",<br>  "elasticache:Describe*",<br>  "elasticfilesystem:Describe*",<br>  "elasticloadbalancing:Describe*",<br>  "elasticmapreduce:Describe*",<br>  "elasticmapreduce:List*",<br>  "events:List*",<br>  "firehose:Describe*",<br>  "firehose:List*",<br>  "iam:Get*",<br>  "iam:List*",<br>  "kinesis:Describe*",<br>  "kinesis:List*",<br>  "kms:Describe*",<br>  "kms:List*",<br>  "lambda:List*",<br>  "logs:Describe*",<br>  "organizations:Describe*",<br>  "organizations:List*",<br>  "rds:Describe*",<br>  "redshift:Describe*",<br>  "route53:List*",<br>  "s3:GetBucket*",<br>  "s3:List*",<br>  "secretsmanager:List*",<br>  "sns:Get*",<br>  "sns:List*",<br>  "sqs:Get*",<br>  "sqs:List*",<br>  "synthetics:Describe*",<br>  "synthetics:List*"<br>]</pre> | no |
-| <a name="input_eventbridge_name_prefix"></a> [eventbridge\_name\_prefix](#input\_eventbridge\_name\_prefix) | Prefix used for eventbridge rule | `string` | `"observe-lambda-snapshot-"` | no |
+| <a name="input_eventbridge_name_prefix"></a> [eventbridge\_name\_prefix](#input\_eventbridge\_name\_prefix) | Prefix used for EventBridge Rule | `string` | `"observe-lambda-snapshot-"` | no |
 | <a name="input_eventbridge_schedule_event_bus_name"></a> [eventbridge\_schedule\_event\_bus\_name](#input\_eventbridge\_schedule\_event\_bus\_name) | Event Bus for EventBridge scheduled events | `string` | `"default"` | no |
 | <a name="input_eventbridge_schedule_expression"></a> [eventbridge\_schedule\_expression](#input\_eventbridge\_schedule\_expression) | Rate at which snapshot is triggered. Must be valid EventBridge expression | `string` | `"rate(3 hours)"` | no |
 | <a name="input_exclude"></a> [exclude](#input\_exclude) | List of actions to exclude from being executed on snapshot request. | `list(string)` | `[]` | no |
