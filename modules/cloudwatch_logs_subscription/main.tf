@@ -1,7 +1,10 @@
 locals {
-  arn     = regex("arn:aws:lambda:(?P<region>[^:]+):(?P<account>[0-9]+)", var.lambda.arn)
-  region  = local.arn["region"]
-  account = var.account != "" ? var.account : local.arn["account"]
+  account = coalesce(var.account, data.aws_arn.this.account)
+  region  = data.aws_arn.this.region
+}
+
+data "aws_arn" "this" {
+  arn = var.lambda.arn
 }
 
 resource "aws_lambda_permission" "permission" {
