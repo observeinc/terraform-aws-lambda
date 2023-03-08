@@ -1,4 +1,4 @@
-output "bucket" {
-  description = "S3 bucket subscribed to Observe Lambda"
-  value       = aws_s3_bucket.bucket
+output "buckets" {
+  description = "S3 buckets subscribed to Observe Lambda"
+  value       = module.observe_s3_bucket
 }

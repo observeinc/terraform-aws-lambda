@@ -26,14 +26,14 @@ Note that this will create AWS resources - once you are done, run `terraform des
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.1.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 3.75 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.9 |
 | <a name="requirement_random"></a> [random](#requirement\_random) | >= 3.0.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 3.75 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.9 |
 | <a name="provider_random"></a> [random](#provider\_random) | >= 3.0.0 |
 
 ## Modules
@@ -42,13 +42,12 @@ Note that this will create AWS resources - once you are done, run `terraform des
 |------|--------|---------|
 | <a name="module_observe_lambda"></a> [observe\_lambda](#module\_observe\_lambda) | ../.. | n/a |
 | <a name="module_observe_lambda_s3_subscription"></a> [observe\_lambda\_s3\_subscription](#module\_observe\_lambda\_s3\_subscription) | ../..//modules/s3_bucket_subscription | n/a |
+| <a name="module_observe_s3_bucket"></a> [observe\_s3\_bucket](#module\_observe\_s3\_bucket) | ../..//modules/s3_bucket | n/a |
 
 ## Resources
 
 | Name | Type |
 |------|------|
-| [aws_s3_bucket.bucket](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket) | resource |
-| [aws_s3_bucket_acl.bucket](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_acl) | resource |
 | [aws_s3_object.example](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_object) | resource |
 | [random_pet.run](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/pet) | resource |
 
@@ -67,5 +66,5 @@ Note that this will create AWS resources - once you are done, run `terraform des
 
 | Name | Description |
 |------|-------------|
-| <a name="output_bucket"></a> [bucket](#output\_bucket) | S3 bucket subscribed to Observe Lambda |
+| <a name="output_buckets"></a> [buckets](#output\_buckets) | S3 buckets subscribed to Observe Lambda |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
