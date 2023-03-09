@@ -1,10 +1,17 @@
 locals {
-  role_name     = regex(".*role/(?P<role_name>.*)$", var.lambda.lambda_function.role)["role_name"]
-  function_name = regex(".*:function:(?P<function_name>.*)$", var.lambda.lambda_function.arn)["function_name"]
-
   iam_name_prefix     = var.iam_name_prefix != "" ? var.iam_name_prefix : var.eventbridge_name_prefix
   statement_id_prefix = var.statement_id_prefix != "" ? var.statement_id_prefix : local.iam_name_prefix
   action              = concat(var.action, var.include)
+  role_resource       = split("/", data.aws_arn.role.resource)
+  role_name           = local.role_resource[length(local.role_resource) - 1]
+}
+
+data "aws_arn" "role" {
+  arn = var.lambda.lambda_function.role
+}
+
+data "aws_arn" "function" {
+  arn = var.lambda.lambda_function.arn
 }
 
 resource "aws_iam_policy" "this" {
@@ -29,7 +36,7 @@ resource "aws_iam_role_policy_attachment" "this" {
 
 resource "aws_cloudwatch_event_rule" "trigger" {
   name_prefix         = var.eventbridge_name_prefix
-  description         = "Periodically trigger Observe lambda to snapshot AWS API"
+  description         = "Periodically trigger Observe Lambda to snapshot AWS API"
   schedule_expression = var.eventbridge_schedule_expression
   event_bus_name      = var.eventbridge_schedule_event_bus_name
 }
@@ -50,6 +57,6 @@ resource "aws_lambda_permission" "this" {
   statement_id_prefix = local.statement_id_prefix
   action              = "lambda:InvokeFunction"
   principal           = "events.amazonaws.com"
-  function_name       = local.function_name
+  function_name       = trimprefix(data.aws_arn.function.resource, "function:")
   source_arn          = aws_cloudwatch_event_rule.trigger.arn
 }
