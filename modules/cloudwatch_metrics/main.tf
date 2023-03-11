@@ -39,7 +39,7 @@ resource "aws_iam_role_policy_attachment" "this" {
 resource "aws_cloudwatch_event_rule" "trigger" {
   name_prefix         = var.eventbridge_name_prefix
   description         = "Periodically trigger Observe Lambda to collect CloudWatch metrics"
-  schedule_expression = "cron(${var.interval / 60} * * * ? *)"
+  schedule_expression = var.interval == 60 ? "rate(1 minute)" : "rate(${var.interval / 60} minutes)"
   event_bus_name      = var.eventbridge_schedule_event_bus_name
 }
 
