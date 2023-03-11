@@ -35,8 +35,8 @@ variable "interval" {
   nullable    = false
   default     = 300
   validation {
-    condition     = var.interval >= 60 && var.interval < 3600
-    error_message = "interval must be greater than or equal to 60 and less than 3600."
+    condition     = var.interval >= 60 && var.interval <= 10800
+    error_message = "interval must be in [60, 10800] (1 minute to 3 hours)"
   }
 }
 
