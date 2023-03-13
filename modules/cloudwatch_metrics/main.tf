@@ -36,10 +36,20 @@ resource "aws_iam_role_policy_attachment" "this" {
   policy_arn = aws_iam_policy.this.arn
 }
 
+
+
+locals {
+  cron_expression = coalesce(
+    var.interval >= 60 && var.interval < 60 * 60 ? "*/${var.interval / 60} * * * ? *" : "",                # minutely
+    var.interval >= 60 * 60 && var.interval < 24 * 60 * 60 ? "0 */${var.interval / 60 / 60} * * ? *" : "", # hourly
+    var.interval >= 24 * 60 * 60 ? "0 0 */${var.interval / 24 / 60 / 60} * ? *" : "",                      # daily
+  )
+}
+
 resource "aws_cloudwatch_event_rule" "trigger" {
   name_prefix         = var.eventbridge_name_prefix
   description         = "Periodically trigger Observe Lambda to collect CloudWatch metrics"
-  schedule_expression = var.interval == 60 ? "rate(1 minute)" : "rate(${var.interval / 60} minutes)"
+  schedule_expression = "cron(${local.cron_expression})"
   event_bus_name      = var.eventbridge_schedule_event_bus_name
 }
 
