@@ -35,8 +35,8 @@ variable "interval" {
   nullable    = false
   default     = 300
   validation {
-    condition     = var.interval >= 60 && var.interval <= 10800
-    error_message = "interval must be in [60, 10800] (1 minute to 3 hours)"
+    condition     = (var.interval >= 60 && var.interval <= 60 * 60) || (var.interval >= 60 * 60 && var.interval <= 24 * 60 * 60 && var.interval % (60 * 60) == 0)
+    error_message = "interval must be minutely, up to an hour, or hourly, up to a day"
   }
 }
 
