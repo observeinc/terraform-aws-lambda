@@ -27,7 +27,7 @@ module "observe_lambda" {
 }
 
 module "observe_lambda_cloudwatch_logs_subscription" {
-  source = "observeinc/lambda/aws//cloudwatch_logs_subscription"
+  source = "observeinc/lambda/aws//modules/cloudwatch_logs_subscription"
   lambda = module.observe_lambda.lambda_function
   log_group_names = [
     aws_cloudwatch_log_group.group.name
