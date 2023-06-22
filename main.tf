@@ -4,6 +4,27 @@ locals {
   lambda_iam_role_name  = regex(".*role/(?P<role_name>.*)$", local.lambda_iam_role_arn)["role_name"]
   s3_bucket             = var.s3_bucket != "" ? var.s3_bucket : lookup(var.s3_regional_buckets, data.aws_region.current.name, local.default_lambda_bucket)
   s3_key                = var.s3_key != "" ? var.s3_key : join("/", [var.s3_key_prefix, format("%s.zip", var.lambda_version)])
+
+  goarch = lookup(
+    {
+      "amd64" : {
+        architectures = ["x86_64"]
+        handler       = "bootstrap"
+        runtime       = "provided.al2"
+      }
+      "arm64" : {
+        architectures = ["arm64"]
+        handler       = "bootstrap"
+        runtime       = "provided.al2"
+      }
+    },
+    split("/", var.lambda_version)[0],
+    {
+      architectures = null
+      handler       = "main"
+      runtime       = "go1.x"
+    },
+  )
 }
 
 data "aws_region" "current" {}
@@ -15,11 +36,12 @@ resource "aws_lambda_function" "this" {
   s3_object_version = var.s3_object_version
   role              = local.lambda_iam_role_arn
 
-  handler     = "main"
-  runtime     = "go1.x"
-  description = var.description
-  kms_key_arn = var.kms_key_arn
-  tags        = var.tags
+  architectures = local.goarch.architectures
+  handler       = local.goarch.handler
+  runtime       = local.goarch.runtime
+  description   = var.description
+  kms_key_arn   = var.kms_key_arn
+  tags          = var.tags
 
   memory_size                    = var.memory_size
   reserved_concurrent_executions = var.reserved_concurrent_executions < 0 ? null : var.reserved_concurrent_executions
