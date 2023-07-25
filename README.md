@@ -95,6 +95,7 @@ No modules.
 | Name | Description |
 |------|-------------|
 | <a name="output_lambda_function"></a> [lambda\_function](#output\_lambda\_function) | Observe Lambda function |
+| <a name="output_log_group_name"></a> [log\_group\_name](#output\_log\_group\_name) | The name of the CloudWatch log group where logs for the Lambda will be written. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## License
