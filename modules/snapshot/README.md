@@ -115,6 +115,7 @@ No modules.
 | [aws_cloudwatch_event_target.target](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_event_target) | resource |
 | [aws_iam_policy.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_role_policy_attachment.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
+| [aws_lambda_invocation.snapshot](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_invocation) | resource |
 | [aws_lambda_permission.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_permission) | resource |
 | [aws_arn.function](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/arn) | data source |
 | [aws_arn.role](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/arn) | data source |
@@ -130,6 +131,7 @@ No modules.
 | <a name="input_exclude"></a> [exclude](#input\_exclude) | List of actions to exclude from being executed on snapshot request. | `list(string)` | `[]` | no |
 | <a name="input_iam_name_prefix"></a> [iam\_name\_prefix](#input\_iam\_name\_prefix) | Prefix used for all created IAM roles and policies | `string` | `""` | no |
 | <a name="input_include"></a> [include](#input\_include) | List of actions to include in snapshot request. | `list(string)` | `[]` | no |
+| <a name="input_invoke_snapshot_on_start_enabled"></a> [invoke\_snapshot\_on\_start\_enabled](#input\_invoke\_snapshot\_on\_start\_enabled) | Toggle invocation of snapshot from Cloudformation. | `string` | `true` | no |
 | <a name="input_lambda"></a> [lambda](#input\_lambda) | Observe Lambda module | <pre>object({<br>    lambda_function = object({<br>      arn  = string<br>      role = string<br>    })<br>  })</pre> | n/a | yes |
 | <a name="input_overrides"></a> [overrides](#input\_overrides) | List of configuration overrides. | <pre>list(object({<br>    action = string<br>    config = map(any)<br>  }))</pre> | `[]` | no |
 | <a name="input_resources"></a> [resources](#input\_resources) | List of resources to scope policy to. | `list(string)` | <pre>[<br>  "*"<br>]</pre> | no |

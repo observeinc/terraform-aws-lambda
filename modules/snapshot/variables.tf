@@ -31,11 +31,11 @@ variable "eventbridge_name_prefix" {
 
 variable "action" {
   description = <<-EOF
-    List of actions allowed by policy and periodically triggered. By default,
-    this list contains all policies which the lambda can act upon. You should
-    only override this list if you do not want to execute more actions as they
-    become available in future lambda upgrades. If you instead wish to extend
-    this list, or ignore a subset of actions, use \"include\" and \"exclude\".
+  List of actions allowed by policy and periodically triggered. By default,
+  this list contains all policies which the lambda can act upon. You should
+  only override this list if you do not want to execute more actions as they
+  become available in future lambda upgrades. If you instead wish to extend
+  this list, or ignore a subset of actions, use \"include\" and \"exclude\".
   EOF
   type        = list(string)
   nullable    = false
@@ -129,4 +129,11 @@ variable "eventbridge_schedule_expression" {
   type        = string
   nullable    = false
   default     = "rate(3 hours)"
+}
+
+variable "invoke_snapshot_on_start_enabled" {
+  description = "Toggle invocation of snapshot from Cloudformation."
+  type        = string
+  nullable    = false
+  default     = true
 }

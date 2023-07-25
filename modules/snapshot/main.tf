@@ -60,3 +60,12 @@ resource "aws_lambda_permission" "this" {
   function_name       = trimprefix(data.aws_arn.function.resource, "function:")
   source_arn          = aws_cloudwatch_event_rule.trigger.arn
 }
+
+resource "aws_lambda_invocation" "snapshot" {
+  count = var.invoke_snapshot_on_start_enabled ? 1 : 0
+  # Note: Use function name from the arn to prevent requiring function_name
+  function_name = trimprefix(data.aws_arn.function.resource, "function:")
+
+  input = aws_cloudwatch_event_target.target.input
+}
+
