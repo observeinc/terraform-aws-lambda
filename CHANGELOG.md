@@ -1,14 +1,15 @@
-# [3.2.0](https://github.com/observeinc/terraform-aws-lambda/compare/v3.1.3...v3.2.0) (2023-06-22)
+# [3.3.0](https://github.com/observeinc/terraform-aws-lambda/compare/v3.2.0...v3.3.0) (2023-07-27)
 
 
 ### Bug Fixes
 
-* update `required_providers` syntax ([#67](https://github.com/observeinc/terraform-aws-lambda/issues/67)) ([ff93195](https://github.com/observeinc/terraform-aws-lambda/commit/ff93195bcba2e261f303e239ac0e28b9580ed0cf))
+* declare Lambda's dependency on log group ([#68](https://github.com/observeinc/terraform-aws-lambda/issues/68)) ([07a9083](https://github.com/observeinc/terraform-aws-lambda/commit/07a908305cfc2c052bb0448b5ec1081871aa55ae))
 
 
 ### Features
 
-* select runtime / arch based off version ([#66](https://github.com/observeinc/terraform-aws-lambda/issues/66)) ([edac772](https://github.com/observeinc/terraform-aws-lambda/commit/edac772146791b3cb2d55bdd243df820f4da39a1))
+* add `log_group_name` output ([#69](https://github.com/observeinc/terraform-aws-lambda/issues/69)) ([7192167](https://github.com/observeinc/terraform-aws-lambda/commit/719216702da9216906b66da0f0cb2b31c3e950cf))
+* add initial snapshot invoke for lambda ([d36648a](https://github.com/observeinc/terraform-aws-lambda/commit/d36648af194b360146cdf4bb87d469d52430f595))
 
 
 
