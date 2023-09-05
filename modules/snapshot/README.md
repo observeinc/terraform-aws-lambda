@@ -9,11 +9,10 @@ to ensure that all requested endpoints are accessible.
 
 ```hcl
 module "observe_lambda" {
-  source           = "observeinc/lambda/aws"
-  observe_customer = var.observe_customer
-  observe_token    = var.observe_token
-  observe_domain   = var.observe_domain
-  name             = random_pet.run.id
+  source                      = "observeinc/lambda/aws"
+  observe_collection_endpoint = var.observe_collection_endpoint
+  observe_token               = var.observe_token
+  name                        = random_pet.run.id
 }
 
 module "observe_lambda_snapshot" {

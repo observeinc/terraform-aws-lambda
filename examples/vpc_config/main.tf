@@ -10,10 +10,9 @@ resource "random_pet" "run" {
 module "observe_lambda" {
   source = "../.."
 
-  name             = random_pet.run.id
-  observe_domain   = var.observe_domain
-  observe_customer = var.observe_customer
-  observe_token    = var.observe_token
+  name                        = random_pet.run.id
+  observe_collection_endpoint = var.observe_collection_endpoint
+  observe_token               = var.observe_token
 
   vpc_config = {
     subnets         = [aws_subnet.private]
