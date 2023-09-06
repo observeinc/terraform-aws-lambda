@@ -41,6 +41,12 @@ resource "aws_cloudwatch_event_rule" "trigger" {
   event_bus_name      = var.eventbridge_schedule_event_bus_name
 }
 
+resource "time_sleep" "wait_after_policy_attachment" {
+  depends_on = [aws_iam_role_policy_attachment.this]
+
+  create_duration = "3m"
+}
+
 resource "aws_cloudwatch_event_target" "target" {
   arn  = var.lambda.lambda_function.arn
   rule = aws_cloudwatch_event_rule.trigger.name
@@ -51,6 +57,10 @@ resource "aws_cloudwatch_event_target" "target" {
       overrides = var.overrides
     }
   })
+
+  depends_on = [
+    time_sleep.wait_after_policy_attachment,
+  ]
 }
 
 resource "aws_lambda_permission" "this" {
