@@ -8,9 +8,9 @@ Terraform module which sets up a Lambda to forward event data towards Observe.
 module "observe_lambda" {
   source = "observeinc/lambda/aws"
 
-  name                = "observe-lambda"
-  observe_customer    = "<id>"
-  observe_token       = "<token>"
+  name                           = "observe-lambda"
+  observe_collection_endpoint    = "https://<customerid>.collect.observeinc.com"
+  observe_token                  = "<token>"
 }
 ```
 
@@ -76,8 +76,9 @@ No modules.
 | <a name="input_lambda_version"></a> [lambda\_version](#input\_lambda\_version) | Version of lambda binary to use | `string` | `"latest"` | no |
 | <a name="input_memory_size"></a> [memory\_size](#input\_memory\_size) | The amount of memory that your function has access to. Increasing the function's memory also increases its CPU allocation.<br>The default value is 128 MB. The value must be a multiple of 64 MB. | `number` | `128` | no |
 | <a name="input_name"></a> [name](#input\_name) | Name of Lambda resource | `string` | n/a | yes |
-| <a name="input_observe_customer"></a> [observe\_customer](#input\_observe\_customer) | Observe Customer ID | `string` | n/a | yes |
-| <a name="input_observe_domain"></a> [observe\_domain](#input\_observe\_domain) | Observe domain | `string` | `"observeinc.com"` | no |
+| <a name="input_observe_collection_endpoint"></a> [observe\_collection\_endpoint](#input\_observe\_collection\_endpoint) | Observe Collection Endpoint, e.g https://123456789012.collect.observeinc.com | `string` | `null` | no |
+| <a name="input_observe_customer"></a> [observe\_customer](#input\_observe\_customer) | Observe Customer ID. Deprecated, please use observe\_collection\_endpoint instead | `string` | `null` | no |
+| <a name="input_observe_domain"></a> [observe\_domain](#input\_observe\_domain) | Observe domain. Deprecated, please use observe\_collection\_endpoint instead | `string` | `"observeinc.com"` | no |
 | <a name="input_observe_token"></a> [observe\_token](#input\_observe\_token) | Observe Token | `string` | n/a | yes |
 | <a name="input_reserved_concurrent_executions"></a> [reserved\_concurrent\_executions](#input\_reserved\_concurrent\_executions) | The number of simultaneous executions to reserve for the function. | `number` | `100` | no |
 | <a name="input_retention_in_days"></a> [retention\_in\_days](#input\_retention\_in\_days) | Retention in days of cloudwatch log group | `number` | `14` | no |
