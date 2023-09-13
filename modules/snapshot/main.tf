@@ -51,6 +51,8 @@ resource "aws_cloudwatch_event_target" "target" {
       overrides = var.overrides
     }
   })
+
+  depends_on = [aws_lambda_permission.this]
 }
 
 resource "aws_lambda_permission" "this" {
@@ -68,4 +70,3 @@ resource "aws_lambda_invocation" "snapshot" {
 
   input = aws_cloudwatch_event_target.target.input
 }
-
