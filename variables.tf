@@ -39,7 +39,7 @@ variable "observe_domain" {
 variable "lambda_version" {
   description = "Version of lambda binary to use"
   type        = string
-  default     = "latest"
+  default     = "arm64/latest"
   nullable    = false
 }
 
