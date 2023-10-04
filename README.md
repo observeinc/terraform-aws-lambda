@@ -73,7 +73,7 @@ No modules.
 | <a name="input_lambda_envvars"></a> [lambda\_envvars](#input\_lambda\_envvars) | Environment variables | `map(any)` | `{}` | no |
 | <a name="input_lambda_iam_role_arn"></a> [lambda\_iam\_role\_arn](#input\_lambda\_iam\_role\_arn) | ARN of IAM role to use for Lambda | `string` | `""` | no |
 | <a name="input_lambda_s3_custom_rules"></a> [lambda\_s3\_custom\_rules](#input\_lambda\_s3\_custom\_rules) | List of rules to evaluate how to upload a given S3 object to Observe | <pre>list(object({<br>    pattern = string<br>    headers = map(string)<br>  }))</pre> | `[]` | no |
-| <a name="input_lambda_version"></a> [lambda\_version](#input\_lambda\_version) | Version of lambda binary to use | `string` | `"latest"` | no |
+| <a name="input_lambda_version"></a> [lambda\_version](#input\_lambda\_version) | Version of lambda binary to use | `string` | `"arm64/latest"` | no |
 | <a name="input_memory_size"></a> [memory\_size](#input\_memory\_size) | The amount of memory that your function has access to. Increasing the function's memory also increases its CPU allocation.<br>The default value is 128 MB. The value must be a multiple of 64 MB. | `number` | `128` | no |
 | <a name="input_name"></a> [name](#input\_name) | Name of Lambda resource | `string` | n/a | yes |
 | <a name="input_observe_collection_endpoint"></a> [observe\_collection\_endpoint](#input\_observe\_collection\_endpoint) | Observe Collection Endpoint, e.g https://123456789012.collect.observeinc.com | `string` | `null` | no |
