@@ -33,13 +33,13 @@ module "observe_lambda_s3_subscription" {
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.1.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 2.68 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 2.68 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.0 |
 
 ## Modules
 
@@ -60,6 +60,7 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_bucket_arns"></a> [bucket\_arns](#input\_bucket\_arns) | S3 bucket ARNs to subscribe to Observe Lambda | `list(string)` | `[]` | no |
+| <a name="input_enable_eventbridge"></a> [enable\_eventbridge](#input\_enable\_eventbridge) | Enable sending bucket notifications to EventBridge | `bool` | `false` | no |
 | <a name="input_filter_prefix"></a> [filter\_prefix](#input\_filter\_prefix) | Specifies object key name prefix on S3 bucket notifications. | `string` | `""` | no |
 | <a name="input_filter_suffix"></a> [filter\_suffix](#input\_filter\_suffix) | Specifies object key name suffix on S3 bucket notifications. | `string` | `""` | no |
 | <a name="input_iam_name_prefix"></a> [iam\_name\_prefix](#input\_iam\_name\_prefix) | Prefix used for all created IAM roles and policies | `string` | `"observe-lambda-"` | no |

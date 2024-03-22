@@ -18,8 +18,10 @@ resource "aws_lambda_permission" "allow_bucket" {
 }
 
 resource "aws_s3_bucket_notification" "notification" {
-  count  = length(aws_lambda_permission.allow_bucket)
-  bucket = data.aws_arn.bucket[count.index].resource
+  count       = length(aws_lambda_permission.allow_bucket)
+  bucket      = data.aws_arn.bucket[count.index].resource
+  eventbridge = var.enable_eventbridge
+
   lambda_function {
     lambda_function_arn = aws_lambda_permission.allow_bucket[count.index].function_name
     events              = ["s3:ObjectCreated:*"]

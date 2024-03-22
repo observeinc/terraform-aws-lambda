@@ -40,3 +40,10 @@ variable "statement_id_prefix" {
   nullable    = false
   default     = ""
 }
+
+variable "enable_eventbridge" {
+  description = "Enable sending bucket notifications to EventBridge"
+  type        = bool
+  nullable    = false
+  default     = false
+}
