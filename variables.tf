@@ -98,11 +98,11 @@ variable "description" {
 variable "memory_size" {
   description = <<-EOF
     The amount of memory that your function has access to. Increasing the function's memory also increases its CPU allocation.
-    The default value is 128 MB. The value must be a multiple of 64 MB.
+    The value must be a multiple of 64 MB. The maximum is 10,240 MB.
   EOF
   type        = number
   nullable    = false
-  default     = 128
+  default     = 2048
 }
 
 variable "timeout" {
@@ -112,7 +112,7 @@ variable "timeout" {
   EOF
   type        = number
   nullable    = false
-  default     = 60
+  default     = 120
 }
 
 variable "reserved_concurrent_executions" {
