@@ -21,8 +21,8 @@ locals {
     split("/", var.lambda_version)[0],
     {
       architectures = null
-      handler       = "main"
-      runtime       = "go1.x"
+      handler       = "bootstrap"
+      runtime       = "provided.al2"
     },
   )
 }
