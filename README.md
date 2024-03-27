@@ -74,7 +74,7 @@ No modules.
 | <a name="input_lambda_iam_role_arn"></a> [lambda\_iam\_role\_arn](#input\_lambda\_iam\_role\_arn) | ARN of IAM role to use for Lambda | `string` | `""` | no |
 | <a name="input_lambda_s3_custom_rules"></a> [lambda\_s3\_custom\_rules](#input\_lambda\_s3\_custom\_rules) | List of rules to evaluate how to upload a given S3 object to Observe | <pre>list(object({<br>    pattern = string<br>    headers = map(string)<br>  }))</pre> | `[]` | no |
 | <a name="input_lambda_version"></a> [lambda\_version](#input\_lambda\_version) | Version of lambda binary to use | `string` | `"arm64/latest"` | no |
-| <a name="input_memory_size"></a> [memory\_size](#input\_memory\_size) | The amount of memory that your function has access to. Increasing the function's memory also increases its CPU allocation.<br>The default value is 128 MB. The value must be a multiple of 64 MB. | `number` | `128` | no |
+| <a name="input_memory_size"></a> [memory\_size](#input\_memory\_size) | The amount of memory that your function has access to. Increasing the function's memory also increases its CPU allocation.<br>The value must be a multiple of 64 MB. The maximum is 10,240 MB. | `number` | `2048` | no |
 | <a name="input_name"></a> [name](#input\_name) | Name of Lambda resource | `string` | n/a | yes |
 | <a name="input_observe_collection_endpoint"></a> [observe\_collection\_endpoint](#input\_observe\_collection\_endpoint) | Observe Collection Endpoint, e.g https://123456789012.collect.observeinc.com | `string` | `null` | no |
 | <a name="input_observe_customer"></a> [observe\_customer](#input\_observe\_customer) | Observe Customer ID. Deprecated, please use observe\_collection\_endpoint instead | `string` | `null` | no |
@@ -88,7 +88,7 @@ No modules.
 | <a name="input_s3_object_version"></a> [s3\_object\_version](#input\_s3\_object\_version) | S3 object version for lambda binary | `string` | `""` | no |
 | <a name="input_s3_regional_buckets"></a> [s3\_regional\_buckets](#input\_s3\_regional\_buckets) | Map of AWS regions to lambda hosting S3 buckets | `map(any)` | `{}` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | A map of tags to add to all resources | `map(string)` | `{}` | no |
-| <a name="input_timeout"></a> [timeout](#input\_timeout) | The amount of time that Lambda allows a function to run before stopping it.<br>The maximum allowed value is 900 seconds. | `number` | `60` | no |
+| <a name="input_timeout"></a> [timeout](#input\_timeout) | The amount of time that Lambda allows a function to run before stopping it.<br>The maximum allowed value is 900 seconds. | `number` | `120` | no |
 | <a name="input_vpc_config"></a> [vpc\_config](#input\_vpc\_config) | VPC Config | <pre>object({<br>    security_groups = list(object({<br>      id = string<br>    }))<br>    subnets = list(object({<br>      arn = string<br>      id  = string<br>    }))<br>  })</pre> | `null` | no |
 
 ## Outputs
