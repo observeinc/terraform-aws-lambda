@@ -102,7 +102,7 @@ variable "memory_size" {
   EOF
   type        = number
   nullable    = false
-  default     = 2048
+  default     = 128
 }
 
 variable "timeout" {
@@ -112,7 +112,7 @@ variable "timeout" {
   EOF
   type        = number
   nullable    = false
-  default     = 120
+  default     = 60
 }
 
 variable "reserved_concurrent_executions" {
