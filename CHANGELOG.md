@@ -1,9 +1,10 @@
-# [3.5.0](https://github.com/observeinc/terraform-aws-lambda/compare/v3.4.0...v3.5.0) (2024-03-22)
+## [3.5.1](https://github.com/observeinc/terraform-aws-lambda/compare/v3.5.0...v3.5.1) (2024-04-11)
 
 
-### Features
+### Bug Fixes
 
-* **s3_bucket_subscription:** allow enabling eventbridge ([#77](https://github.com/observeinc/terraform-aws-lambda/issues/77)) ([af0d896](https://github.com/observeinc/terraform-aws-lambda/commit/af0d896deba14df40d53982c1f3619e869da1201))
+* CS-425 update default aws snapshot lambda to 2gb and timeout to 120s ([7353b81](https://github.com/observeinc/terraform-aws-lambda/commit/7353b81bba89029b8c5c1eef1ffd076430eb3a68))
+* update default aws snapshot lambda to 2gb and timeout to 120 seconds ([de3ca75](https://github.com/observeinc/terraform-aws-lambda/commit/de3ca75853d5417277c900cf592dbddde7e579af))
 
 
 
