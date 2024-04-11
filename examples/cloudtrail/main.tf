@@ -6,14 +6,14 @@ resource "random_pet" "run" {
 
 module "cloudtrail_s3_bucket" {
   source        = "cloudposse/cloudtrail-s3-bucket/aws"
-  version       = "0.15.0"
+  version       = ">=0.15.0"
   name          = random_pet.run.id
   force_destroy = true
 }
 
 module "cloudtrail" {
   source                        = "cloudposse/cloudtrail/aws"
-  version                       = "0.15.0"
+  version                       = ">=0.15.0"
   name                          = random_pet.run.id
   enable_log_file_validation    = true
   include_global_service_events = true
