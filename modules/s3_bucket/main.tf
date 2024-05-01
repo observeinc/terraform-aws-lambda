@@ -8,7 +8,7 @@ data "aws_caller_identity" "current" {}
 
 module "s3_bucket" {
   source  = "terraform-aws-modules/s3-bucket/aws"
-  version = "~> 3.7.0"
+  version = "~> 4.1.0"
 
   bucket        = var.bucket_name
   acl           = "log-delivery-write"
