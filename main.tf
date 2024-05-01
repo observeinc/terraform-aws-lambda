@@ -4,7 +4,7 @@ locals {
   lambda_iam_role_name  = regex(".*role/(?P<role_name>.*)$", local.lambda_iam_role_arn)["role_name"]
   s3_bucket             = var.s3_bucket != "" ? var.s3_bucket : lookup(var.s3_regional_buckets, data.aws_region.current.name, local.default_lambda_bucket)
   s3_key                = var.s3_key != "" ? var.s3_key : join("/", [var.s3_key_prefix, format("%s.zip", var.lambda_version)])
-
+  observe_token         = var.kms_key != null ? aws_kms_ciphertext.token[0].ciphertext_blob : var.observe_token
   goarch = lookup(
     {
       "amd64" : {
@@ -29,6 +29,15 @@ locals {
 
 data "aws_region" "current" {}
 
+resource "aws_kms_ciphertext" "token" {
+  count     = var.kms_key != null ? 1 : 0
+  key_id    = var.kms_key.arn
+  plaintext = var.observe_token
+  context = {
+    LambdaFunctionName = var.name
+  }
+}
+
 resource "aws_lambda_function" "this" {
   function_name     = var.name
   s3_bucket         = local.s3_bucket
@@ -40,7 +49,7 @@ resource "aws_lambda_function" "this" {
   handler       = local.goarch.handler
   runtime       = local.goarch.runtime
   description   = var.description
-  kms_key_arn   = var.kms_key_arn
+  kms_key_arn   = var.kms_key != null ? var.kms_key.arn : var.kms_key_arn
   tags          = var.tags
 
   memory_size                    = var.memory_size
@@ -55,7 +64,7 @@ resource "aws_lambda_function" "this" {
   environment {
     variables = merge({
       OBSERVE_COLLECTION_ENDPOINT = var.observe_collection_endpoint != null ? var.observe_collection_endpoint : format("https://%s.collect.%s", var.observe_customer, var.observe_domain)
-      OBSERVE_TOKEN               = var.observe_token
+      OBSERVE_TOKEN               = local.observe_token
       }, length(var.lambda_s3_custom_rules) > 0 ? {
       S3_CUSTOM_RULES = base64encode(jsonencode(var.lambda_s3_custom_rules))
       } : {}
@@ -162,4 +171,38 @@ resource "aws_iam_role_policy_attachment" "vpc_access" {
   count      = var.vpc_config == null ? 0 : 1
   role       = local.lambda_iam_role_name
   policy_arn = aws_iam_policy.vpc_access[0].arn
+}
+
+resource "aws_iam_policy" "kms_decrypt" {
+  count       = var.kms_key != null ? 1 : 0
+  name_prefix = var.iam_name_prefix
+  description = "IAM policy for decrypting ciphertext using KMS"
+
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "kms:Decrypt"
+      ],
+      "Resource": [
+          "${var.kms_key.arn}"
+      ],
+      "Condition": {
+        "StringEquals": {
+          "kms:EncryptionContext:LambdaFunctionName": "${var.name}"
+        }
+      }
+    }
+  ]
+}
+EOF
+}
+
+resource "aws_iam_role_policy_attachment" "kms_decrypt" {
+  count      = length(aws_iam_policy.kms_decrypt)
+  role       = local.lambda_iam_role_name
+  policy_arn = aws_iam_policy.kms_decrypt[count.index].arn
 }

@@ -22,11 +22,6 @@ variable "observe_customer" {
 variable "observe_token" {
   description = "Observe Token"
   type        = string
-
-  validation {
-    condition     = contains(split("", var.observe_token), ":")
-    error_message = "Token format does not follow {datastream_id}:{datastream_secret} format."
-  }
 }
 
 variable "observe_domain" {
@@ -136,10 +131,20 @@ variable "iam_name_prefix" {
   default     = "observe-lambda-"
 }
 
+variable "kms_key" {
+  description = <<-EOF
+    The AWS Key Management Service (AWS KMS) key that's used to encrypt your
+    function's environment variables at rest. Additionally, the Observe Token
+    will be encrypted in transit.
+  EOF
+  type        = object({ arn = string })
+  default     = null
+}
+
 variable "kms_key_arn" {
   description = <<-EOF
     The ARN of the AWS Key Management Service (AWS KMS) key that's used to encrypt your function's environment variables.
-    If it's not provided, AWS Lambda uses a default service key.
+    If it's not provided, AWS Lambda uses a default service key. Deprecated, please use kms_key instead"
   EOF
   type        = string
   nullable    = false
