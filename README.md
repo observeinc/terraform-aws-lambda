@@ -20,7 +20,7 @@ Additionally, this repository provides submodules to interact with the lambda fu
 
 * [Upload S3 objects using S3 bucket notifications](https://github.com/observeinc/terraform-aws-lambda/tree/main/modules/s3_bucket_subscription)
 * [Subscribe CloudWatch Logs to Observe Lambda](https://github.com/observeinc/terraform-aws-lambda/tree/main/modules/cloudwatch_logs_subscription)
-* [Collect API snapshots](https://github.com/observeinc/terraform-aws-lambda/tree/main/snapshot)
+* [Collect API snapshots](https://github.com/observeinc/terraform-aws-lambda/tree/main/modules/snapshot)
 
 ## Examples
 
