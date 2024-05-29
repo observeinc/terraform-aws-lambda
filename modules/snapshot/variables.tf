@@ -41,6 +41,7 @@ variable "action" {
   nullable    = false
   default = [
     "apigateway:Get*",
+    "apigatewayv2:Get*",
     "autoscaling:Describe*",
     "cloudformation:Describe*",
     "cloudformation:List*",
