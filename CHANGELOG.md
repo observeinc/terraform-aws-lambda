@@ -1,10 +1,14 @@
-# [3.6.0](https://github.com/observeinc/terraform-aws-lambda/compare/v3.5.1...v3.6.0) (2024-05-01)
+# [3.7.0](https://github.com/observeinc/terraform-aws-lambda/compare/v3.6.0...v3.7.0) (2025-05-07)
+
+
+### Bug Fixes
+
+* Fix S3 Bucket Notification Configuration Validation Error OBSSD-612 ([a708fc6](https://github.com/observeinc/terraform-aws-lambda/commit/a708fc6f17fadf1330c048d4165a1a3385de8a9b))
 
 
 ### Features
 
-* allow KMS encryption of token environment variable ([#83](https://github.com/observeinc/terraform-aws-lambda/issues/83)) ([5d209d5](https://github.com/observeinc/terraform-aws-lambda/commit/5d209d56d478e3e810d4e65bc26eb6daed95beca))
-* bump min terraform version to 1.1.1 ([#85](https://github.com/observeinc/terraform-aws-lambda/issues/85)) ([c660124](https://github.com/observeinc/terraform-aws-lambda/commit/c660124248bc0a3a3ef2a2d96dcef982e85af68e))
+* Update for apigatewayv2 ([a191b9c](https://github.com/observeinc/terraform-aws-lambda/commit/a191b9c8678d9f2c3aecfce14e6d0a5d8e7371fb))
 
 
 
