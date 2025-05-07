@@ -28,6 +28,7 @@ resource "aws_s3_bucket_notification" "notification" {
     filter_prefix       = var.filter_prefix
     filter_suffix       = var.filter_suffix
   }
+  depends_on = [aws_lambda_permission.allow_bucket]
 }
 
 resource "aws_iam_policy" "s3_bucket_read" {
