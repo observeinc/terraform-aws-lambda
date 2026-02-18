@@ -202,7 +202,7 @@ EOF
 }
 
 resource "aws_iam_role_policy_attachment" "kms_decrypt" {
-  count      = length(aws_iam_policy.kms_decrypt)
+  count      = count = var.kms_key != null ? 1 : 0
   role       = local.lambda_iam_role_name
   policy_arn = aws_iam_policy.kms_decrypt[count.index].arn
 }
