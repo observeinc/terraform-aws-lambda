@@ -42,8 +42,6 @@ module "s3_bucket" {
   tags = var.tags
 }
 
-data "aws_redshift_service_account" "this" {}
-
 data "aws_iam_policy_document" "bucket" {
   statement {
     sid    = "AWSCloudTrailWrite"
