@@ -42,8 +42,6 @@ module "s3_bucket" {
   tags = var.tags
 }
 
-data "aws_redshift_service_account" "this" {}
-
 data "aws_iam_policy_document" "bucket" {
   statement {
     sid    = "AWSCloudTrailWrite"
@@ -134,8 +132,8 @@ data "aws_iam_policy_document" "bucket" {
     effect = "Allow"
 
     principals {
-      type        = "AWS"
-      identifiers = [data.aws_redshift_service_account.this.arn]
+      type        = "Service"
+      identifiers = ["redshift.amazonaws.com"]
     }
 
     actions = [
@@ -152,8 +150,8 @@ data "aws_iam_policy_document" "bucket" {
     effect = "Allow"
 
     principals {
-      type        = "AWS"
-      identifiers = [data.aws_redshift_service_account.this.arn]
+      type        = "Service"
+      identifiers = ["redshift.amazonaws.com"]
     }
 
     actions = [
