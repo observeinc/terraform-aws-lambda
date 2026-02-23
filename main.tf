@@ -10,19 +10,19 @@ locals {
       "amd64" : {
         architectures = ["x86_64"]
         handler       = "bootstrap"
-        runtime       = "provided.al2"
+        runtime       = "provided.al2023"
       }
       "arm64" : {
         architectures = ["arm64"]
         handler       = "bootstrap"
-        runtime       = "provided.al2"
+        runtime       = "provided.al2023"
       }
     },
     split("/", var.lambda_version)[0],
     {
       architectures = null
-      handler       = "main"
-      runtime       = "go1.x"
+      handler       = "bootstrap"
+      runtime       = "provided.al2023"
     },
   )
 }
