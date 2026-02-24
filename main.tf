@@ -1,8 +1,8 @@
 locals {
-  default_lambda_bucket = format("observeinc-%s", data.aws_region.current.name)
+  default_lambda_bucket = format("observeinc-%s", data.aws_region.current.id)
   lambda_iam_role_arn   = var.lambda_iam_role_arn != "" ? var.lambda_iam_role_arn : aws_iam_role.lambda[0].arn
   lambda_iam_role_name  = regex(".*role/(?P<role_name>.*)$", local.lambda_iam_role_arn)["role_name"]
-  s3_bucket             = var.s3_bucket != "" ? var.s3_bucket : lookup(var.s3_regional_buckets, data.aws_region.current.name, local.default_lambda_bucket)
+  s3_bucket             = var.s3_bucket != "" ? var.s3_bucket : lookup(var.s3_regional_buckets, data.aws_region.current.id, local.default_lambda_bucket)
   s3_key                = var.s3_key != "" ? var.s3_key : join("/", [var.s3_key_prefix, format("%s.zip", var.lambda_version)])
   observe_token         = var.kms_key != null ? aws_kms_ciphertext.token[0].ciphertext_blob : var.observe_token
   goarch = lookup(
@@ -10,19 +10,19 @@ locals {
       "amd64" : {
         architectures = ["x86_64"]
         handler       = "bootstrap"
-        runtime       = "provided.al2"
+        runtime       = "provided.al2023"
       }
       "arm64" : {
         architectures = ["arm64"]
         handler       = "bootstrap"
-        runtime       = "provided.al2"
+        runtime       = "provided.al2023"
       }
     },
     split("/", var.lambda_version)[0],
     {
       architectures = null
-      handler       = "main"
-      runtime       = "go1.x"
+      handler       = "bootstrap"
+      runtime       = "provided.al2023"
     },
   )
 }
