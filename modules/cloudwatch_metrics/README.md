@@ -39,13 +39,13 @@ module "cloudwatch_metrics" {
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 2.68 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 2.68 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 6.0 |
 
 ## Modules
 
@@ -71,10 +71,10 @@ No modules.
 | <a name="input_delay"></a> [delay](#input\_delay) | Collection delay in seconds. This delay accounts for the lag in metrics availability via Cloudwatch API. | `number` | `300` | no |
 | <a name="input_eventbridge_name_prefix"></a> [eventbridge\_name\_prefix](#input\_eventbridge\_name\_prefix) | Prefix used for eventbridge rule | `string` | `"observe-lambda-metrics-"` | no |
 | <a name="input_eventbridge_schedule_event_bus_name"></a> [eventbridge\_schedule\_event\_bus\_name](#input\_eventbridge\_schedule\_event\_bus\_name) | Event Bus for EventBridge scheduled events | `string` | `"default"` | no |
-| <a name="input_filters"></a> [filters](#input\_filters) | List of filters. | <pre>list(object({<br>    namespace    = string<br>    list_mode    = optional(string)<br>    metric_names = optional(list(string))<br>    dimensions = optional(list(object({<br>      name  = string<br>      value = optional(string)<br>    })))<br>  }))</pre> | n/a | yes |
+| <a name="input_filters"></a> [filters](#input\_filters) | List of filters. | <pre>list(object({<br/>    namespace    = string<br/>    list_mode    = optional(string)<br/>    metric_names = optional(list(string))<br/>    dimensions = optional(list(object({<br/>      name  = string<br/>      value = optional(string)<br/>    })))<br/>  }))</pre> | n/a | yes |
 | <a name="input_iam_name_prefix"></a> [iam\_name\_prefix](#input\_iam\_name\_prefix) | Prefix used for all created IAM roles and policies | `string` | `""` | no |
 | <a name="input_interval"></a> [interval](#input\_interval) | Interval in seconds between collection runs. Use a multiple of period to avoid gaps. | `number` | `300` | no |
-| <a name="input_lambda"></a> [lambda](#input\_lambda) | Observe Lambda module | <pre>object({<br>    lambda_function = object({<br>      arn  = string<br>      role = string<br>    })<br>  })</pre> | n/a | yes |
+| <a name="input_lambda"></a> [lambda](#input\_lambda) | Observe Lambda module | <pre>object({<br/>    lambda_function = object({<br/>      arn  = string<br/>      role = string<br/>    })<br/>  })</pre> | n/a | yes |
 | <a name="input_period"></a> [period](#input\_period) | Period in seconds between metric data points. Must be a multiple of 60. | `number` | `60` | no |
 | <a name="input_statement_id_prefix"></a> [statement\_id\_prefix](#input\_statement\_id\_prefix) | Prefix used for Lambda permission statement ID | `string` | `""` | no |
 

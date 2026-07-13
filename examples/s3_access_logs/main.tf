@@ -11,14 +11,14 @@ resource "aws_s3_bucket_acl" "monitored" {
 }
 
 resource "aws_s3_bucket" "access_logs" {
-  bucket = var.name
-
-  logging {
-    target_bucket = aws_s3_bucket.monitored.id
-    target_prefix = "log/"
-  }
-
+  bucket        = var.name
   force_destroy = true
+}
+
+resource "aws_s3_bucket_logging" "access_logs" {
+  bucket        = aws_s3_bucket.access_logs.id
+  target_bucket = aws_s3_bucket.monitored.id
+  target_prefix = "log/"
 }
 
 resource "aws_s3_bucket_acl" "access_logs" {

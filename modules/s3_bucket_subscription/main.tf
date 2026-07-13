@@ -36,32 +36,26 @@ resource "aws_iam_policy" "s3_bucket_read" {
   # s3:ListBucket is not strictly required, but it allows us to receive a 404
   # instead of 403 error if an S3 object no longer exists by the time our
   # lambda function tries to retrieve it
-  policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-     "Action": [
-       "s3:ListBucket"
-     ],
-     "Effect": "Allow",
-     "Resource": ${jsonencode(var.bucket_arns)},
-     "Condition":{
-       "StringLike":{
-         "s3:prefix":["${var.filter_prefix}*"]
-       }
-     }
-    },
-    {
-      "Action": [
-        "s3:GetObject"
-      ],
-      "Effect": "Allow",
-      "Resource": ${jsonencode([for i in var.bucket_arns : format("%s/%s*", i, var.filter_prefix)])}
-    }
-  ]
-}
-EOF
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action   = ["s3:ListBucket"]
+        Effect   = "Allow"
+        Resource = var.bucket_arns
+        Condition = {
+          StringLike = {
+            "s3:prefix" = ["${var.filter_prefix}*"]
+          }
+        }
+      },
+      {
+        Action   = ["s3:GetObject"]
+        Effect   = "Allow"
+        Resource = [for i in var.bucket_arns : format("%s/%s*", i, var.filter_prefix)]
+      }
+    ]
+  })
 }
 
 resource "aws_iam_role_policy_attachment" "lambda_s3_bucket_read" {

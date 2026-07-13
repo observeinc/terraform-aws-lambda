@@ -1,8 +1,8 @@
 locals {
-  default_lambda_bucket = format("observeinc-%s", data.aws_region.current.id)
+  default_lambda_bucket = format("observeinc-%s", data.aws_region.current.region)
   lambda_iam_role_arn   = var.lambda_iam_role_arn != "" ? var.lambda_iam_role_arn : aws_iam_role.lambda[0].arn
   lambda_iam_role_name  = regex(".*role/(?P<role_name>.*)$", local.lambda_iam_role_arn)["role_name"]
-  s3_bucket             = var.s3_bucket != "" ? var.s3_bucket : lookup(var.s3_regional_buckets, data.aws_region.current.id, local.default_lambda_bucket)
+  s3_bucket             = var.s3_bucket != "" ? var.s3_bucket : lookup(var.s3_regional_buckets, data.aws_region.current.region, local.default_lambda_bucket)
   s3_key                = var.s3_key != "" ? var.s3_key : join("/", [var.s3_key_prefix, format("%s.zip", var.lambda_version)])
   observe_token         = var.kms_key != null ? aws_kms_ciphertext.token[0].ciphertext_blob : var.observe_token
   goarch = lookup(
@@ -86,23 +86,17 @@ resource "aws_lambda_function" "this" {
 }
 
 resource "aws_iam_role" "lambda" {
-  count              = var.lambda_iam_role_arn == "" ? 1 : 0
-  name_prefix        = var.iam_name_prefix
-  assume_role_policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Principal": {
-        "Service": "lambda.amazonaws.com"
-      },
-      "Effect": "Allow",
-      "Sid": ""
-    }
-  ]
-}
-EOF
+  count       = var.lambda_iam_role_arn == "" ? 1 : 0
+  name_prefix = var.iam_name_prefix
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Action    = "sts:AssumeRole"
+      Principal = { Service = "lambda.amazonaws.com" }
+      Effect    = "Allow"
+      Sid       = ""
+    }]
+  })
 }
 
 resource "aws_cloudwatch_log_group" "group" {
@@ -114,24 +108,14 @@ resource "aws_iam_policy" "lambda_logging" {
   name_prefix = var.iam_name_prefix
   description = "IAM policy for logging from a lambda"
 
-  policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": [
-        "logs:CreateLogGroup",
-        "logs:CreateLogStream",
-        "logs:PutLogEvents"
-      ],
-      "Resource": [
-          "${aws_cloudwatch_log_group.group.arn}*"
-      ]
-    }
-  ]
-}
-EOF
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Effect   = "Allow"
+      Action   = ["logs:CreateLogGroup", "logs:CreateLogStream", "logs:PutLogEvents"]
+      Resource = ["${aws_cloudwatch_log_group.group.arn}*"]
+    }]
+  })
 }
 
 resource "aws_iam_role_policy_attachment" "lambda_logs" {
@@ -144,27 +128,19 @@ resource "aws_iam_policy" "vpc_access" {
   name_prefix = var.iam_name_prefix
   description = "IAM policy for attaching to VPC"
 
-  policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": [
-        "ec2:CreateNetworkInterface",
-        "ec2:DescribeNetworkInterfaces",
-        "ec2:DeleteNetworkInterface"
-      ],
-      "Resource": "*",
-      "Condition": {
-        "ArnLikeIfExists": {
-          "ec2:Subnet": ${jsonencode([for s in var.vpc_config.subnets : s.arn])}
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Effect   = "Allow"
+      Action   = ["ec2:CreateNetworkInterface", "ec2:DescribeNetworkInterfaces", "ec2:DeleteNetworkInterface"]
+      Resource = "*"
+      Condition = {
+        ArnLikeIfExists = {
+          "ec2:Subnet" = [for s in var.vpc_config.subnets : s.arn]
         }
       }
-    }
-  ]
-}
-EOF
+    }]
+  })
 }
 
 resource "aws_iam_role_policy_attachment" "vpc_access" {
@@ -178,27 +154,19 @@ resource "aws_iam_policy" "kms_decrypt" {
   name_prefix = var.iam_name_prefix
   description = "IAM policy for decrypting ciphertext using KMS"
 
-  policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": [
-        "kms:Decrypt"
-      ],
-      "Resource": [
-          "${var.kms_key.arn}"
-      ],
-      "Condition": {
-        "StringEquals": {
-          "kms:EncryptionContext:LambdaFunctionName": "${var.name}"
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Effect   = "Allow"
+      Action   = ["kms:Decrypt"]
+      Resource = [var.kms_key.arn]
+      Condition = {
+        StringEquals = {
+          "kms:EncryptionContext:LambdaFunctionName" = var.name
         }
       }
-    }
-  ]
-}
-EOF
+    }]
+  })
 }
 
 resource "aws_iam_role_policy_attachment" "kms_decrypt" {
