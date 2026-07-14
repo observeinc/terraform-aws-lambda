@@ -36,14 +36,14 @@ This repository contains examples of how to solve for concrete usecases:
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.1.1 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 2.68 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.1 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 2.68 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 6.0 |
 
 ## Modules
 
@@ -72,13 +72,13 @@ No modules.
 | <a name="input_dead_letter_queue_destination"></a> [dead\_letter\_queue\_destination](#input\_dead\_letter\_queue\_destination) | Send failed events/function executions to a dead letter queue arn sns or sqs | `string` | `null` | no |
 | <a name="input_description"></a> [description](#input\_description) | Lambda description | `string` | `"Lambda function to forward events towards Observe"` | no |
 | <a name="input_iam_name_prefix"></a> [iam\_name\_prefix](#input\_iam\_name\_prefix) | Prefix used for all created IAM roles and policies | `string` | `"observe-lambda-"` | no |
-| <a name="input_kms_key"></a> [kms\_key](#input\_kms\_key) | The AWS Key Management Service (AWS KMS) key that's used to encrypt your<br>function's environment variables at rest. Additionally, the Observe Token<br>will be encrypted in transit. | `object({ arn = string })` | `null` | no |
-| <a name="input_kms_key_arn"></a> [kms\_key\_arn](#input\_kms\_key\_arn) | The ARN of the AWS Key Management Service (AWS KMS) key that's used to encrypt your function's environment variables.<br>If it's not provided, AWS Lambda uses a default service key. Deprecated, please use kms\_key instead" | `string` | `""` | no |
+| <a name="input_kms_key"></a> [kms\_key](#input\_kms\_key) | The AWS Key Management Service (AWS KMS) key that's used to encrypt your<br/>function's environment variables at rest. Additionally, the Observe Token<br/>will be encrypted in transit. | `object({ arn = string })` | `null` | no |
+| <a name="input_kms_key_arn"></a> [kms\_key\_arn](#input\_kms\_key\_arn) | The ARN of the AWS Key Management Service (AWS KMS) key that's used to encrypt your function's environment variables.<br/>If it's not provided, AWS Lambda uses a default service key. Deprecated, please use kms\_key instead" | `string` | `""` | no |
 | <a name="input_lambda_envvars"></a> [lambda\_envvars](#input\_lambda\_envvars) | Environment variables | `map(any)` | `{}` | no |
 | <a name="input_lambda_iam_role_arn"></a> [lambda\_iam\_role\_arn](#input\_lambda\_iam\_role\_arn) | ARN of IAM role to use for Lambda | `string` | `""` | no |
-| <a name="input_lambda_s3_custom_rules"></a> [lambda\_s3\_custom\_rules](#input\_lambda\_s3\_custom\_rules) | List of rules to evaluate how to upload a given S3 object to Observe | <pre>list(object({<br>    pattern = string<br>    headers = map(string)<br>  }))</pre> | `[]` | no |
+| <a name="input_lambda_s3_custom_rules"></a> [lambda\_s3\_custom\_rules](#input\_lambda\_s3\_custom\_rules) | List of rules to evaluate how to upload a given S3 object to Observe | <pre>list(object({<br/>    pattern = string<br/>    headers = map(string)<br/>  }))</pre> | `[]` | no |
 | <a name="input_lambda_version"></a> [lambda\_version](#input\_lambda\_version) | Version of lambda binary to use | `string` | `"arm64/latest"` | no |
-| <a name="input_memory_size"></a> [memory\_size](#input\_memory\_size) | The amount of memory that your function has access to. Increasing the function's memory also increases its CPU allocation.<br>The value must be a multiple of 64 MB. The maximum is 10,240 MB. | `number` | `2048` | no |
+| <a name="input_memory_size"></a> [memory\_size](#input\_memory\_size) | The amount of memory that your function has access to. Increasing the function's memory also increases its CPU allocation.<br/>The value must be a multiple of 64 MB. The maximum is 10,240 MB. | `number` | `2048` | no |
 | <a name="input_name"></a> [name](#input\_name) | Name of Lambda resource | `string` | n/a | yes |
 | <a name="input_observe_collection_endpoint"></a> [observe\_collection\_endpoint](#input\_observe\_collection\_endpoint) | Observe Collection Endpoint, e.g https://123456789012.collect.observeinc.com | `string` | `null` | no |
 | <a name="input_observe_customer"></a> [observe\_customer](#input\_observe\_customer) | Observe Customer ID. Deprecated, please use observe\_collection\_endpoint instead | `string` | `null` | no |
@@ -92,8 +92,8 @@ No modules.
 | <a name="input_s3_object_version"></a> [s3\_object\_version](#input\_s3\_object\_version) | S3 object version for lambda binary | `string` | `""` | no |
 | <a name="input_s3_regional_buckets"></a> [s3\_regional\_buckets](#input\_s3\_regional\_buckets) | Map of AWS regions to lambda hosting S3 buckets | `map(any)` | `{}` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | A map of tags to add to all resources | `map(string)` | `{}` | no |
-| <a name="input_timeout"></a> [timeout](#input\_timeout) | The amount of time that Lambda allows a function to run before stopping it.<br>The maximum allowed value is 900 seconds. | `number` | `120` | no |
-| <a name="input_vpc_config"></a> [vpc\_config](#input\_vpc\_config) | VPC Config | <pre>object({<br>    security_groups = list(object({<br>      id = string<br>    }))<br>    subnets = list(object({<br>      arn = string<br>      id  = string<br>    }))<br>  })</pre> | `null` | no |
+| <a name="input_timeout"></a> [timeout](#input\_timeout) | The amount of time that Lambda allows a function to run before stopping it.<br/>The maximum allowed value is 900 seconds. | `number` | `120` | no |
+| <a name="input_vpc_config"></a> [vpc\_config](#input\_vpc\_config) | VPC Config | <pre>object({<br/>    security_groups = list(object({<br/>      id = string<br/>    }))<br/>    subnets = list(object({<br/>      arn = string<br/>      id  = string<br/>    }))<br/>  })</pre> | `null` | no |
 
 ## Outputs
 
